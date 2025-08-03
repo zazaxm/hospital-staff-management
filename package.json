@@ -1,0 +1,18 @@
+{
+  "name": "hospital-staff-management",
+  "version": "1.0.0",
+  "description": "Hospital staff management system for endorsements and patient room assignments",
+  "main": "server-simple.js",
+  "scripts": {
+    "start": "node server-simple.js",
+    "dev": "node server-simple.js",
+    "build": "echo 'No build step required'"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": ["hospital", "staff", "management", "endorsements"],
+  "author": "Hospital Staff",
+  "license": "MIT"
+} 
