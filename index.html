@@ -99,8 +99,7 @@
       font-size: 14px;
       font-weight: 500;
       color: #666;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s ease;
+      border-bottom: 2px solid transparent;
       white-space: nowrap;
       -webkit-tap-highlight-color: transparent;
     }
@@ -118,6 +117,22 @@
       display: block;
     }
 
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .form-group {
       margin-bottom: 15px;
     }
@@ -125,21 +140,18 @@
     .form-group label {
       display: block;
       margin-bottom: 5px;
-      font-weight: 600;
+      font-weight: 500;
       color: #555;
-      font-size: 14px;
     }
 
     .form-control {
       width: 100%;
-      padding: 12px 15px;
-      border: 2px solid #e1e5e9;
+      padding: 12px;
+      border: 2px solid #eee;
       border-radius: 8px;
-      font-size: 16px;
-      transition: border-color 0.3s ease;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
+      font-size: 14px;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
     }
 
     .form-control:focus {
@@ -148,24 +160,32 @@
     }
 
     .btn {
-      padding: 12px 20px;
+      padding: 12px 24px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
-      font-weight: 600;
-      transition: all 0.3s ease;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
     }
 
     .btn-primary {
-      background: #667eea;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
     }
 
     .btn-primary:hover {
-      background: #5a6fd8;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
     }
 
     .btn-success {
@@ -178,123 +198,11 @@
       color: white;
     }
 
-    .btn-secondary {
-      background: #6c757d;
-      color: white;
-    }
-
-    .card {
-      background: #f8f9fa;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-left: 4px solid #667eea;
-    }
-
-    .endorsement-card {
-      background: white;
-      border: 1px solid #e1e5e9;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .endorsement-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .endorsement-type {
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .type-general {
-      background: #e3f2fd;
-      color: #1976d2;
-    }
-
-    .type-specific {
-      background: #fff3e0;
-      color: #f57c00;
-    }
-
-    .endorsement-message {
-      margin-bottom: 15px;
-      line-height: 1.6;
-    }
-
-    .endorsement-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: #666;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .acknowledgments {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-    }
-
-    .ack-badge {
-      background: #e8f5e8;
-      color: #2e7d32;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-    }
-
-    .room-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .room-card {
-      background: white;
-      border: 1px solid #e1e5e9;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .room-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .room-number {
-      font-size: 16px;
-      font-weight: 600;
-      color: #667eea;
-    }
-
-    .room-info {
-      margin-bottom: 8px;
-    }
-
-    .room-info strong {
-      color: #555;
-    }
-
     .alert {
-      padding: 15px;
+      padding: 12px 16px;
       border-radius: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      font-size: 14px;
     }
 
     .alert-success {
@@ -309,10 +217,35 @@
       border: 1px solid #f5c6cb;
     }
 
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #666;
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .room-card {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 15px;
+      border: 1px solid #dee2e6;
+    }
+
+    .room-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .room-number {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .room-info {
+      margin-bottom: 8px;
+      font-size: 14px;
     }
 
     .empty-state {
@@ -323,26 +256,23 @@
 
     .empty-state i {
       font-size: 48px;
+      margin-bottom: 15px;
       color: #ddd;
-      margin-bottom: 20px;
     }
 
-    /* Mobile-specific styles */
+    .empty-state h3 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
     @media (max-width: 768px) {
       .container {
         padding: 5px;
       }
       
-      .main-app {
-        margin: 5px;
-        border-radius: 10px;
-      }
-      
-      .header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-        padding: 15px;
+      .login-container {
+        margin: 20px auto;
+        padding: 20px;
       }
       
       .header h1 {
@@ -350,284 +280,254 @@
       }
       
       .tabs {
-        flex-direction: row;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        flex-wrap: wrap;
       }
       
       .tab {
-        flex-shrink: 0;
-        padding: 10px 15px;
-        font-size: 13px;
-      }
-      
-      .content {
-        padding: 15px;
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
       }
       
       .room-grid {
         grid-template-columns: 1fr;
-        gap: 10px;
-      }
-      
-      .card {
-        padding: 15px;
-      }
-      
-      .form-control {
-        font-size: 16px; /* Prevents zoom on iOS */
-      }
-      
-      .btn {
-        padding: 15px 20px; /* Larger touch targets */
-        font-size: 16px;
-      }
-    }
-
-    /* iOS Safari specific fixes */
-    @supports (-webkit-touch-callout: none) {
-      .form-control {
-        font-size: 16px;
-      }
-      
-      .btn {
-        -webkit-appearance: none;
-        border-radius: 8px;
-      }
-    }
-
-    /* Android Chrome specific fixes */
-    @media screen and (-webkit-min-device-pixel-ratio: 0) {
-      .form-control {
-        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Login Screen -->
-  <div id="loginScreen" class="login-container">
-    <h2 style="text-align: center; margin-bottom: 30px; color: #667eea;">
-      <i class="fas fa-hospital"></i> Hospital Staff Management
-    </h2>
-    
-    <!-- Login Form -->
-    <div id="loginSection">
-      <h3 style="text-align: center; margin-bottom: 20px; color: #555;">Login</h3>
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" class="form-control" required>
+  <div class="container">
+    <!-- Login Section -->
+    <div id="loginSection" class="login-container">
+      <h2 style="text-align: center; margin-bottom: 30px; color: #333;">
+        <i class="fas fa-hospital"></i> Hospital Staff Management
+      </h2>
+      
+      <!-- Login Form -->
+      <div id="loginFormSection">
+        <h3 style="text-align: center; margin-bottom: 20px; color: #555;">Login</h3>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+        </form>
+        <div style="text-align: center; margin-top: 20px;">
+          <button type="button" class="btn btn-secondary" onclick="showSignup()" style="width: 100%;">
+            <i class="fas fa-user-plus"></i> New User? Sign Up
+          </button>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%;">
-          <i class="fas fa-sign-in-alt"></i> Login
-        </button>
-      </form>
-      <div style="text-align: center; margin-top: 20px;">
-        <button type="button" class="btn btn-secondary" onclick="showSignup()" style="width: 100%;">
-          <i class="fas fa-user-plus"></i> New User? Sign Up
-        </button>
+        <div id="loginError" class="alert alert-error" style="display: none; margin-top: 20px;"></div>
       </div>
-      <div id="loginError" class="alert alert-error" style="display: none; margin-top: 20px;"></div>
-    </div>
 
-    <!-- Signup Form -->
-    <div id="signupSection" style="display: none;">
-      <h3 style="text-align: center; margin-bottom: 20px; color: #555;">Sign Up</h3>
-      <form id="signupForm">
-        <div class="form-group">
-          <label for="signupName">Full Name</label>
-          <input type="text" id="signupName" class="form-control" required>
+      <!-- Signup Form -->
+      <div id="signupSection" style="display: none;">
+        <h3 style="text-align: center; margin-bottom: 20px; color: #555;">Sign Up</h3>
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="signupName">Full Name</label>
+            <input type="text" id="signupName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="signupRole">Role</label>
+            <select id="signupRole" class="form-control" onchange="toggleSignupWard()" required>
+              <option value="">Select role...</option>
+              <option value="nurse">Nurse</option>
+              <option value="doctor">Doctor</option>
+              <option value="staff">Staff</option>
+            </select>
+          </div>
+          <div class="form-group" id="signupWardGroup" style="display: none;">
+            <label for="signupWard">Ward</label>
+            <select id="signupWard" class="form-control">
+              <option value="">Select ward...</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <i class="fas fa-user-plus"></i> Sign Up
+          </button>
+        </form>
+        <div style="text-align: center; margin-top: 20px;">
+          <button type="button" class="btn btn-secondary" onclick="showLogin()" style="width: 100%;">
+            <i class="fas fa-sign-in-alt"></i> Already have account? Login
+          </button>
         </div>
-        <div class="form-group">
-          <label for="signupEmail">Email</label>
-          <input type="email" id="signupEmail" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label for="signupPassword">Password</label>
-          <input type="password" id="signupPassword" class="form-control" required>
-        </div>
-        <div class="form-group">
-          <label for="signupRole">Role</label>
-          <select id="signupRole" class="form-control" onchange="toggleSignupWard()" required>
-            <option value="">Select role...</option>
-            <option value="nurse">Nurse</option>
-            <option value="doctor">Doctor</option>
-            <option value="staff">Staff</option>
-          </select>
-        </div>
-        <div class="form-group" id="signupWardGroup" style="display: none;">
-          <label for="signupWard">Ward</label>
-          <select id="signupWard" class="form-control">
-            <option value="">Select ward...</option>
-        </select>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%;">
-          <i class="fas fa-user-plus"></i> Sign Up
-        </button>
-      </form>
-      <div style="text-align: center; margin-top: 20px;">
-        <button type="button" class="btn btn-secondary" onclick="showLogin()" style="width: 100%;">
-          <i class="fas fa-sign-in-alt"></i> Already have account? Login
-        </button>
-      </div>
-      <div id="signupError" class="alert alert-error" style="display: none; margin-top: 20px;"></div>
-      <div id="signupSuccess" class="alert alert-success" style="display: none; margin-top: 20px;"></div>
-    </div>
-  </div>
-
-  <!-- Main Application -->
-  <div id="mainApp" class="main-app">
-    <div class="header">
-      <h1><i class="fas fa-hospital"></i> Hospital Staff Management</h1>
-      <div class="user-info">
-        <span id="userName"></span>
-        <button class="logout-btn" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </button>
+        <div id="signupError" class="alert alert-error" style="display: none; margin-top: 20px;"></div>
+        <div id="signupSuccess" class="alert alert-success" style="display: none; margin-top: 20px;"></div>
       </div>
     </div>
 
-    <div class="content">
-      <div class="tabs">
-        <button class="tab active" onclick="showTab('endorsements')">
-          <i class="fas fa-comments"></i> Endorsements
-        </button>
-        <button class="tab" onclick="showTab('rooms')" id="roomsTab" style="display: none;">
-          <i class="fas fa-bed"></i> Patient Rooms
-        </button>
-        <button class="tab" onclick="showTab('users')" id="usersTab" style="display: none;">
-          <i class="fas fa-users"></i> User Management
-        </button>
+    <!-- Main Application -->
+    <div id="mainApp" class="main-app">
+      <div class="header">
+        <h1><i class="fas fa-hospital"></i> Hospital Staff Management</h1>
+        <div class="user-info">
+          <span id="userName"></span>
+          <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
       </div>
 
-      <!-- Endorsements Tab -->
-      <div id="endorsementsTab" class="tab-content active">
-        <div class="card">
-          <h3><i class="fas fa-plus"></i> Create New Endorsement</h3>
-          <form id="endorsementForm">
-            <div class="form-group">
-              <label for="endorsementType">Type</label>
-              <select id="endorsementType" class="form-control" onchange="toggleRecipient()">
-                <option value="general">General (All Staff)</option>
-                <option value="specific">Specific Staff Member</option>
-              </select>
-            </div>
-            <div class="form-group" id="recipientGroup" style="display: none;">
-              <label for="recipientEmail">Recipient Email</label>
-              <select id="recipientEmail" class="form-control">
-                <option value="">Select staff member...</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="endorsementMessage">Message</label>
-              <textarea id="endorsementMessage" class="form-control" rows="4" placeholder="Enter your endorsement message..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-paper-plane"></i> Send Endorsement
-            </button>
-          </form>
+      <div class="content">
+        <div class="tabs">
+          <button class="tab active" onclick="showTab('endorsements')">
+            <i class="fas fa-clipboard-list"></i> Endorsements
+          </button>
+          <button class="tab" onclick="showTab('rooms')">
+            <i class="fas fa-bed"></i> Patient Rooms
+          </button>
+          <button class="tab" id="userManagementTab" onclick="showTab('users')" style="display: none;">
+            <i class="fas fa-users"></i> User Management
+          </button>
         </div>
 
-        <div id="endorsementsList"></div>
-      </div>
-
-      <!-- Patient Rooms Tab -->
-      <div id="roomsTab" class="tab-content">
-        <div class="card">
-          <h3><i class="fas fa-plus"></i> Add/Update Patient Room</h3>
-          <form id="roomForm">
-            <div class="form-group">
-              <label for="roomNumber">Room Number</label>
-              <input type="text" id="roomNumber" class="form-control" placeholder="e.g., 101, 2A, ICU-1" required>
-            </div>
-            <div class="form-group">
-              <label for="patientName">Patient Name (Optional)</label>
-              <input type="text" id="patientName" class="form-control" placeholder="Patient name if assigned">
-            </div>
-            <div class="form-group">
-              <label for="nurseExtension">Nurse Extension</label>
-              <input type="text" id="nurseExtension" class="form-control" placeholder="e.g., 1234, 5678" required>
-            </div>
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-save"></i> Save Room
-            </button>
-          </form>
-        </div>
-
-        <div id="roomsList"></div>
-      </div>
-
-      <!-- User Management Tab -->
-      <div id="usersTab" class="tab-content">
-        <div class="card">
-          <h3><i class="fas fa-user-plus"></i> Add New Staff Member</h3>
-          <form id="userForm">
-            <div class="form-group">
-              <label for="newUserName">Full Name</label>
-              <input type="text" id="newUserName" class="form-control" placeholder="Enter full name" required>
-            </div>
-            <div class="form-group">
-              <label for="newUserEmail">Email</label>
-              <input type="email" id="newUserEmail" class="form-control" placeholder="Enter email address" required>
-            </div>
-            <div class="form-group">
-              <label for="newUserPassword">Password</label>
-              <input type="password" id="newUserPassword" class="form-control" placeholder="Enter password" required>
-            </div>
-            <div class="form-group">
-              <label for="newUserRole">Role</label>
-              <select id="newUserRole" class="form-control" onchange="toggleWardSelect()" required>
-                <option value="">Select role...</option>
-                <option value="admin">Admin</option>
-                <option value="nurse">Nurse</option>
-                <option value="doctor">Doctor</option>
-                <option value="staff">Staff</option>
-              </select>
-            </div>
-            <div class="form-group" id="wardGroup" style="display: none;">
-              <label for="newUserWard">Ward</label>
-              <select id="newUserWard" class="form-control">
-                <option value="">Select ward...</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-plus"></i> Add User
-            </button>
-          </form>
-        </div>
-
-        <div class="card">
-          <h3><i class="fas fa-plus"></i> Add New Ward</h3>
-          <form id="wardForm">
-            <div class="form-group">
-              <label for="wardId">Ward ID</label>
-              <input type="text" id="wardId" class="form-control" placeholder="e.g., Cardiology, Oncology" required>
-            </div>
-            <div class="form-group">
-              <label for="wardName">Ward Name</label>
-              <input type="text" id="wardName" class="form-control" placeholder="e.g., Cardiology Department" required>
-            </div>
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-plus"></i> Add Ward
-            </button>
-          </form>
-        </div>
-
-        <div class="card">
-          <h3><i class="fas fa-users"></i> All Staff Members</h3>
-          <div id="usersList"></div>
-        </div>
-        
-        <!-- Pending Users Section (Admin Only) -->
-        <div id="pendingUsersSection" style="display: none;">
+        <!-- Endorsements Tab -->
+        <div id="endorsementsTab" class="tab-content active">
           <div class="card">
-            <h3><i class="fas fa-clock"></i> Pending Approvals</h3>
-            <div id="pendingUsersList"></div>
+            <h3><i class="fas fa-plus"></i> Create New Endorsement</h3>
+            <form id="endorsementForm">
+              <div class="form-group">
+                <label for="endorsementType">Type</label>
+                <select id="endorsementType" class="form-control" onchange="toggleRecipient()" required>
+                  <option value="">Select type...</option>
+                  <option value="general">General (All Staff)</option>
+                  <option value="specific">Specific (Individual Staff)</option>
+                </select>
+              </div>
+              <div class="form-group" id="recipientGroup" style="display: none;">
+                <label for="recipientEmail">Recipient</label>
+                <select id="recipientEmail" class="form-control">
+                  <option value="">Select staff member...</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="endorsementMessage">Message</label>
+                <textarea id="endorsementMessage" class="form-control" rows="4" placeholder="Enter endorsement message..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Send Endorsement
+              </button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-clipboard-list"></i> All Endorsements</h3>
+            <div id="endorsementsList"></div>
+          </div>
+        </div>
+
+        <!-- Patient Rooms Tab -->
+        <div id="roomsTab" class="tab-content">
+          <div class="card">
+            <h3><i class="fas fa-plus"></i> Add Patient Room</h3>
+            <form id="roomForm">
+              <div class="form-group">
+                <label for="roomNumber">Room Number</label>
+                <input type="text" id="roomNumber" class="form-control" placeholder="e.g., 101, 202" required>
+              </div>
+              <div class="form-group">
+                <label for="patientName">Patient Name</label>
+                <input type="text" id="patientName" class="form-control" placeholder="Enter patient name" required>
+              </div>
+              <div class="form-group">
+                <label for="nurseExtension">Nurse Extension</label>
+                <input type="text" id="nurseExtension" class="form-control" placeholder="e.g., 1234" required>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Room
+              </button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-bed"></i> All Patient Rooms</h3>
+            <div id="roomsList"></div>
+          </div>
+        </div>
+
+        <!-- User Management Tab -->
+        <div id="usersTab" class="tab-content">
+          <div class="card">
+            <h3><i class="fas fa-user-plus"></i> Add New Staff Member</h3>
+            <form id="userForm">
+              <div class="form-group">
+                <label for="newUserName">Full Name</label>
+                <input type="text" id="newUserName" class="form-control" placeholder="Enter full name" required>
+              </div>
+              <div class="form-group">
+                <label for="newUserEmail">Email</label>
+                <input type="email" id="newUserEmail" class="form-control" placeholder="Enter email address" required>
+              </div>
+              <div class="form-group">
+                <label for="newUserPassword">Password</label>
+                <input type="password" id="newUserPassword" class="form-control" placeholder="Enter password" required>
+              </div>
+              <div class="form-group">
+                <label for="newUserRole">Role</label>
+                <select id="newUserRole" class="form-control" onchange="toggleWardSelect()" required>
+                  <option value="">Select role...</option>
+                  <option value="admin">Admin</option>
+                  <option value="nurse">Nurse</option>
+                  <option value="doctor">Doctor</option>
+                  <option value="staff">Staff</option>
+                </select>
+              </div>
+              <div class="form-group" id="wardGroup" style="display: none;">
+                <label for="newUserWard">Ward</label>
+                <select id="newUserWard" class="form-control">
+                  <option value="">Select ward...</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add User
+              </button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-plus"></i> Add New Ward</h3>
+            <form id="wardForm">
+              <div class="form-group">
+                <label for="wardId">Ward ID</label>
+                <input type="text" id="wardId" class="form-control" placeholder="e.g., Cardiology, Oncology" required>
+              </div>
+              <div class="form-group">
+                <label for="wardName">Ward Name</label>
+                <input type="text" id="wardName" class="form-control" placeholder="e.g., Cardiology Department" required>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Ward
+              </button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-users"></i> All Staff Members</h3>
+            <div id="usersList"></div>
+          </div>
+          
+          <!-- Pending Users Section (Admin Only) -->
+          <div id="pendingUsersSection" style="display: none;">
+            <div class="card">
+              <h3><i class="fas fa-clock"></i> Pending Approvals</h3>
+              <div id="pendingUsersList"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -641,13 +541,61 @@
     let endorsements = [];
     let patientRooms = [];
     let wards = [];
+    let pendingUsers = [];
 
     // Initialize app when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM loaded, initializing app...');
+      loadDataFromStorage();
       setupEventListeners();
-      loadInitialData();
+      initializeDefaultData();
     });
+
+    function loadDataFromStorage() {
+      // Load data from localStorage
+      users = JSON.parse(localStorage.getItem('users')) || [];
+      endorsements = JSON.parse(localStorage.getItem('endorsements')) || [];
+      patientRooms = JSON.parse(localStorage.getItem('patientRooms')) || [];
+      wards = JSON.parse(localStorage.getItem('wards')) || [];
+      pendingUsers = JSON.parse(localStorage.getItem('pendingUsers')) || [];
+      
+      console.log('Data loaded from storage:', { users, endorsements, patientRooms, wards, pendingUsers });
+    }
+
+    function saveDataToStorage() {
+      // Save data to localStorage
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('endorsements', JSON.stringify(endorsements));
+      localStorage.setItem('patientRooms', JSON.stringify(patientRooms));
+      localStorage.setItem('wards', JSON.stringify(wards));
+      localStorage.setItem('pendingUsers', JSON.stringify(pendingUsers));
+    }
+
+    function initializeDefaultData() {
+      // Initialize with default data if empty
+      if (users.length === 0) {
+        users = [
+          { email: 'admin@hospital.com', password: 'admin123', name: 'Admin', role: 'admin', status: 'approved' },
+          { email: 'nurse1@hospital.com', password: 'nurse123', name: 'Nurse Sarah', role: 'nurse', ward: 'ICU', status: 'approved' },
+          { email: 'nurse2@hospital.com', password: 'nurse123', name: 'Nurse John', role: 'nurse', ward: 'Emergency', status: 'approved' }
+        ];
+        saveDataToStorage();
+      }
+
+      if (wards.length === 0) {
+        wards = [
+          { id: 'ICU', name: 'Intensive Care Unit' },
+          { id: 'Emergency', name: 'Emergency Department' },
+          { id: 'Cardiology', name: 'Cardiology Ward' },
+          { id: 'Oncology', name: 'Oncology Ward' }
+        ];
+        saveDataToStorage();
+      }
+
+      populateRecipientSelect();
+      populateWardSelect();
+      populateSignupWardSelect();
+    }
 
     function setupEventListeners() {
       document.getElementById('loginForm').addEventListener('submit', handleLogin);
@@ -658,35 +606,107 @@
       document.getElementById('wardForm').addEventListener('submit', handleWardSubmit);
     }
 
-    async function loadInitialData() {
-      console.log('Loading initial data...');
-      await loadWards();
-      await loadUsers();
-    }
-
-    async function loadUsers() {
-      try {
-        console.log('Loading users...');
-        const response = await fetch('/api/users');
-        users = await response.json();
-        console.log('Users loaded:', users);
-        populateRecipientSelect();
-        renderUsersList();
-      } catch (error) {
-        console.error('Error loading users:', error);
+    function handleLogin(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      console.log('Login attempt:', { email, password });
+      
+      // Check approved users first
+      const user = users.find(u => u.email === email && u.password === password && u.status === 'approved');
+      
+      if (user) {
+        currentUser = user;
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('mainApp').style.display = 'block';
+        document.getElementById('userName').textContent = user.name;
+        
+        // Show admin features
+        if (user.role === 'admin') {
+          document.getElementById('userManagementTab').style.display = 'block';
+        }
+        
+        loadData();
+        showAlert('Login successful!', 'success');
+      } else {
+        // Check pending users
+        const pendingUser = pendingUsers.find(u => u.email === email && u.password === password);
+        if (pendingUser) {
+          showAlert('Your account is pending admin approval. Please wait.', 'error');
+        } else {
+          showAlert('Invalid credentials. Please try again.', 'error');
+        }
       }
     }
 
-    async function loadWards() {
-      try {
-        console.log('Loading wards...');
-        const response = await fetch('/api/wards');
-        wards = await response.json();
-        console.log('Wards loaded:', wards);
-        populateWardSelect();
-      } catch (error) {
-        console.error('Error loading wards:', error);
+    function handleSignup(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const role = document.getElementById('signupRole').value;
+      const ward = document.getElementById('signupWard').value;
+
+      // Check if user already exists
+      if (users.find(u => u.email === email) || pendingUsers.find(u => u.email === email)) {
+        showAlert('User with this email already exists.', 'error');
+        return;
       }
+
+      const newUser = {
+        email: email,
+        password: password,
+        name: name,
+        role: role,
+        ward: ward || null,
+        status: 'pending',
+        createdAt: new Date().toISOString()
+      };
+
+      pendingUsers.push(newUser);
+      saveDataToStorage();
+
+      document.getElementById('signupForm').reset();
+      document.getElementById('signupWardGroup').style.display = 'none';
+      showAlert('Registration successful! Please wait for admin approval.', 'success');
+      
+      // Auto-switch back to login after 3 seconds
+      setTimeout(() => {
+        showLogin();
+      }, 3000);
+    }
+
+    function showSignup() {
+      document.getElementById('loginFormSection').style.display = 'none';
+      document.getElementById('signupSection').style.display = 'block';
+      populateSignupWardSelect();
+    }
+
+    function showLogin() {
+      document.getElementById('signupSection').style.display = 'none';
+      document.getElementById('loginFormSection').style.display = 'block';
+    }
+
+    function toggleSignupWard() {
+      const role = document.getElementById('signupRole').value;
+      const wardGroup = document.getElementById('signupWardGroup');
+      wardGroup.style.display = (role === 'nurse' || role === 'doctor') ? 'block' : 'none';
+    }
+
+    function populateSignupWardSelect() {
+      const select = document.getElementById('signupWard');
+      if (!select) return;
+      
+      select.innerHTML = '<option value="">Select ward...</option>';
+      wards.forEach(ward => {
+        const option = document.createElement('option');
+        option.value = ward.id;
+        option.textContent = ward.name;
+        select.appendChild(option);
+      });
     }
 
     function populateRecipientSelect() {
@@ -715,76 +735,10 @@
       });
     }
 
-    async function handleLogin(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          currentUser = data.user;
-          showMainApp();
-          loadEndorsements();
-          if (currentUser.role === 'nurse') {
-            loadPatientRooms();
-            document.getElementById('roomsTab').style.display = 'block';
-          }
-          if (currentUser.role === 'admin') {
-            document.getElementById('usersTab').style.display = 'block';
-          }
-        } else {
-          showLoginError(data.error);
-        }
-      } catch (error) {
-        showLoginError('Login failed. Please try again.');
-      }
-    }
-
-    function showLoginError(message) {
-      const errorDiv = document.getElementById('loginError');
-      errorDiv.textContent = message;
-      errorDiv.style.display = 'block';
-    }
-
-    function showMainApp() {
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('mainApp').style.display = 'block';
-      document.getElementById('userName').textContent = currentUser.name;
-    }
-
-    function logout() {
-      currentUser = null;
-      document.getElementById('loginScreen').style.display = 'block';
-      document.getElementById('mainApp').style.display = 'none';
-      document.getElementById('loginForm').reset();
-      document.getElementById('loginError').style.display = 'none';
-    }
-
-    function showTab(tabName) {
-      // Hide all tabs
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-
-      // Show selected tab
-      document.getElementById(tabName + 'Tab').classList.add('active');
-      event.target.classList.add('active');
-
-      // Load data for the tab
-      if (tabName === 'endorsements') {
-        loadEndorsements();
-      } else if (tabName === 'rooms') {
-        loadPatientRooms();
-      } else if (tabName === 'users') {
-        loadUsers();
-      }
+    function toggleWardSelect() {
+      const role = document.getElementById('newUserRole').value;
+      const wardGroup = document.getElementById('wardGroup');
+      wardGroup.style.display = (role === 'nurse' || role === 'doctor') ? 'block' : 'none';
     }
 
     function toggleRecipient() {
@@ -793,152 +747,181 @@
       recipientGroup.style.display = type === 'specific' ? 'block' : 'none';
     }
 
-    function toggleWardSelect() {
-      const role = document.getElementById('newUserRole').value;
-      const wardGroup = document.getElementById('wardGroup');
-      wardGroup.style.display = (role === 'nurse' || role === 'doctor') ? 'block' : 'none';
+    function handleEndorsementSubmit(e) {
+      e.preventDefault();
+      
+      const type = document.getElementById('endorsementType').value;
+      const recipientEmail = document.getElementById('recipientEmail').value;
+      const message = document.getElementById('endorsementMessage').value;
+      
+      const endorsement = {
+        id: Date.now(),
+        type: type,
+        recipientEmail: type === 'specific' ? recipientEmail : null,
+        message: message,
+        createdBy: currentUser.email,
+        createdAt: new Date().toISOString(),
+        acknowledgments: []
+      };
+      
+      endorsements.push(endorsement);
+      saveDataToStorage();
+      
+      document.getElementById('endorsementForm').reset();
+      document.getElementById('recipientGroup').style.display = 'none';
+      renderEndorsements();
+      showAlert('Endorsement created successfully!', 'success');
     }
 
-    async function handleEndorsementSubmit(e) {
+    function handleRoomSubmit(e) {
       e.preventDefault();
-      const type = document.getElementById('endorsementType').value;
-      const message = document.getElementById('endorsementMessage').value;
-      const recipientEmail = type === 'specific' ? document.getElementById('recipientEmail').value : null;
+      
+      const roomNumber = document.getElementById('roomNumber').value;
+      const patientName = document.getElementById('patientName').value;
+      const nurseExtension = document.getElementById('nurseExtension').value;
+      
+      const room = {
+        id: Date.now(),
+        roomNumber: roomNumber,
+        patientName: patientName,
+        nurseExtension: nurseExtension,
+        createdBy: currentUser.email,
+        createdAt: new Date().toISOString()
+      };
+      
+      patientRooms.push(room);
+      saveDataToStorage();
+      
+      document.getElementById('roomForm').reset();
+      renderPatientRooms();
+      showAlert('Patient room added successfully!', 'success');
+    }
 
-      if (type === 'specific' && !recipientEmail) {
-        alert('Please select a recipient for specific endorsements.');
+    function handleUserSubmit(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('newUserName').value;
+      const email = document.getElementById('newUserEmail').value;
+      const password = document.getElementById('newUserPassword').value;
+      const role = document.getElementById('newUserRole').value;
+      const ward = document.getElementById('newUserWard').value;
+
+      // Check if user already exists
+      if (users.find(u => u.email === email) || pendingUsers.find(u => u.email === email)) {
+        showAlert('User with this email already exists.', 'error');
         return;
       }
 
-      try {
-        const response = await fetch('/api/endorsements', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            message,
-            type,
-            recipientEmail,
-            senderName: currentUser.name
-          })
-        });
+      const newUser = {
+        email: email,
+        password: password,
+        name: name,
+        role: role,
+        ward: ward || null,
+        status: 'approved'
+      };
 
-        const data = await response.json();
-        if (data.success) {
-          document.getElementById('endorsementForm').reset();
-          document.getElementById('recipientGroup').style.display = 'none';
-          loadEndorsements();
-          showAlert('Endorsement sent successfully!', 'success');
-        }
-      } catch (error) {
-        showAlert('Failed to send endorsement. Please try again.', 'error');
-      }
+      users.push(newUser);
+      saveDataToStorage();
+      
+      document.getElementById('userForm').reset();
+      document.getElementById('wardGroup').style.display = 'none';
+      populateRecipientSelect();
+      renderUsersList();
+      showAlert('User created successfully!', 'success');
     }
 
-    async function loadEndorsements() {
-      try {
-        const response = await fetch(`/api/endorsements/${currentUser.email}`);
-        endorsements = await response.json();
-        renderEndorsements();
-      } catch (error) {
-        console.error('Error loading endorsements:', error);
+    function handleWardSubmit(e) {
+      e.preventDefault();
+      
+      const wardId = document.getElementById('wardId').value;
+      const wardName = document.getElementById('wardName').value;
+      
+      // Check if ward already exists
+      if (wards.find(w => w.id === wardId)) {
+        showAlert('Ward with this ID already exists.', 'error');
+        return;
       }
+
+      const newWard = {
+        id: wardId,
+        name: wardName
+      };
+
+      wards.push(newWard);
+      saveDataToStorage();
+      
+      document.getElementById('wardForm').reset();
+      populateWardSelect();
+      populateSignupWardSelect();
+      showAlert('Ward created successfully!', 'success');
+    }
+
+    function loadData() {
+      renderEndorsements();
+      renderPatientRooms();
+      renderUsersList();
+      renderPendingUsers();
     }
 
     function renderEndorsements() {
       const container = document.getElementById('endorsementsList');
       
-      if (endorsements.length === 0) {
+      if (!endorsements || endorsements.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
-            <i class="fas fa-comments"></i>
+            <i class="fas fa-clipboard-list"></i>
             <h3>No Endorsements</h3>
-            <p>No endorsements available at the moment.</p>
+            <p>No endorsements have been created yet.</p>
           </div>
         `;
         return;
       }
 
-      container.innerHTML = endorsements.map(endorsement => `
-        <div class="endorsement-card">
-          <div class="endorsement-header">
-            <span class="endorsement-type type-${endorsement.type}">
-              ${endorsement.type === 'general' ? 'General' : 'Specific'}
-            </span>
-            <small>${new Date(endorsement.createdAt).toLocaleString()}</small>
-          </div>
-          <div class="endorsement-message">${endorsement.message}</div>
-          <div class="endorsement-footer">
-            <span><strong>From:</strong> ${endorsement.senderName}</span>
-            ${endorsement.acknowledgments.length > 0 ? `
-              <div class="acknowledgments">
-                <span>Acknowledged by:</span>
-                ${endorsement.acknowledgments.map(ack => 
-                  `<span class="ack-badge">${ack.initials}</span>`
-                ).join('')}
+      container.innerHTML = `
+        <div class="room-grid">
+          ${endorsements.map(endorsement => `
+            <div class="room-card">
+              <div class="room-header">
+                <span class="room-number">${endorsement.type === 'general' ? 'General' : 'Specific'}</span>
+                <button class="btn btn-success" onclick="acknowledgeEndorsement(${endorsement.id})">
+                  <i class="fas fa-check"></i> Acknowledge
+                </button>
               </div>
-            ` : ''}
-          </div>
-          ${!endorsement.acknowledgments.find(a => a.email === currentUser.email) ? `
-            <div style="margin-top: 15px;">
-              <input type="text" placeholder="Your initials" id="initials-${endorsement.id}" 
-                     style="width: 100px; padding: 8px; margin-right: 10px; border: 1px solid #ddd; border-radius: 4px;">
-              <button class="btn btn-success" onclick="acknowledgeEndorsement('${endorsement.id}')">
-                <i class="fas fa-check"></i> Acknowledge
-              </button>
+              <div class="room-info">
+                <strong>Message:</strong> ${endorsement.message}
+              </div>
+              <div class="room-info">
+                <strong>From:</strong> ${endorsement.createdBy}
+              </div>
+              ${endorsement.recipientEmail ? `
+                <div class="room-info">
+                  <strong>To:</strong> ${endorsement.recipientEmail}
+                </div>
+              ` : ''}
+              <div class="room-info">
+                <strong>Created:</strong> ${new Date(endorsement.createdAt).toLocaleString()}
+              </div>
+              ${endorsement.acknowledgments.length > 0 ? `
+                <div class="room-info">
+                  <strong>Acknowledged by:</strong> ${endorsement.acknowledgments.join(', ')}
+                </div>
+              ` : ''}
             </div>
-          ` : '<div style="margin-top: 15px; color: #28a745;"><i class="fas fa-check-circle"></i> Acknowledged</div>'}
+          `).join('')}
         </div>
-      `).join('');
-    }
-
-    async function acknowledgeEndorsement(endorsementId) {
-      const initials = document.getElementById(`initials-${endorsementId}`).value.trim();
-      if (!initials) {
-        alert('Please enter your initials to acknowledge.');
-        return;
-      }
-
-      try {
-        const response = await fetch(`/api/endorsements/${endorsementId}/acknowledge`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userEmail: currentUser.email,
-            userInitials: initials
-          })
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          loadEndorsements();
-          showAlert('Endorsement acknowledged successfully!', 'success');
-        }
-      } catch (error) {
-        showAlert('Failed to acknowledge endorsement. Please try again.', 'error');
-      }
-    }
-
-    async function loadPatientRooms() {
-      if (!currentUser.ward) return;
-      
-      try {
-        const response = await fetch(`/api/patient-rooms/${currentUser.ward}`);
-        patientRooms = await response.json();
-        renderPatientRooms();
-      } catch (error) {
-        console.error('Error loading patient rooms:', error);
-      }
+      `;
     }
 
     function renderPatientRooms() {
       const container = document.getElementById('roomsList');
       
-      if (patientRooms.length === 0) {
+      if (!patientRooms || patientRooms.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
             <i class="fas fa-bed"></i>
             <h3>No Patient Rooms</h3>
-            <p>No patient rooms have been assigned yet.</p>
+            <p>No patient rooms have been added yet.</p>
           </div>
         `;
         return;
@@ -950,151 +933,23 @@
             <div class="room-card">
               <div class="room-header">
                 <span class="room-number">Room ${room.roomNumber}</span>
-                <button class="btn btn-danger" onclick="deleteRoom('${room.wardId}', '${room.roomNumber}')">
+                <button class="btn btn-danger" onclick="deleteRoom(${room.id})">
                   <i class="fas fa-trash"></i>
                 </button>
               </div>
               <div class="room-info">
-                <strong>Patient:</strong> ${room.patientName || 'Unassigned'}
+                <strong>Patient:</strong> ${room.patientName}
               </div>
               <div class="room-info">
-                <strong>Nurse:</strong> ${room.nurseName}
+                <strong>Nurse Extension:</strong> ${room.nurseExtension}
               </div>
               <div class="room-info">
-                <strong>Extension:</strong> ${room.nurseExtension}
-              </div>
-              <div class="room-info">
-                <strong>Last Updated:</strong> ${new Date(room.updatedAt).toLocaleString()}
+                <strong>Added by:</strong> ${room.createdBy}
               </div>
             </div>
           `).join('')}
         </div>
       `;
-    }
-
-    async function handleRoomSubmit(e) {
-      e.preventDefault();
-      const roomNumber = document.getElementById('roomNumber').value;
-      const patientName = document.getElementById('patientName').value;
-      const nurseExtension = document.getElementById('nurseExtension').value;
-
-      try {
-        const response = await fetch('/api/patient-rooms', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            wardId: currentUser.ward,
-            roomNumber,
-            patientName,
-            nurseExtension,
-            nurseName: currentUser.name
-          })
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          document.getElementById('roomForm').reset();
-          loadPatientRooms();
-          showAlert('Room updated successfully!', 'success');
-        }
-      } catch (error) {
-        showAlert('Failed to update room. Please try again.', 'error');
-      }
-    }
-
-    async function deleteRoom(wardId, roomNumber) {
-      if (!confirm('Are you sure you want to delete this room assignment?')) return;
-
-      try {
-        const response = await fetch(`/api/patient-rooms/${wardId}/${roomNumber}`, {
-          method: 'DELETE'
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          loadPatientRooms();
-          showAlert('Room deleted successfully!', 'success');
-        }
-      } catch (error) {
-        showAlert('Failed to delete room. Please try again.', 'error');
-      }
-    }
-
-    async function handleUserSubmit(e) {
-      e.preventDefault();
-      console.log('User form submitted');
-      
-      const name = document.getElementById('newUserName').value;
-      const email = document.getElementById('newUserEmail').value;
-      const password = document.getElementById('newUserPassword').value;
-      const role = document.getElementById('newUserRole').value;
-      const ward = document.getElementById('newUserWard').value;
-
-      console.log('Form data:', { name, email, password, role, ward });
-
-      if (!name || !email || !password || !role) {
-        showAlert('Please fill in all required fields', 'error');
-        return;
-      }
-
-      try {
-        const response = await fetch('/api/users', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name,
-            email,
-            password,
-            role,
-            ward: ward || null
-          })
-        });
-
-        console.log('Response status:', response.status);
-        const data = await response.json();
-        console.log('Response data:', data);
-        
-        if (data.success) {
-          document.getElementById('userForm').reset();
-          document.getElementById('wardGroup').style.display = 'none';
-          loadUsers();
-          showAlert('User created successfully!', 'success');
-        } else {
-          showAlert(data.error || 'Failed to create user', 'error');
-        }
-      } catch (error) {
-        console.error('Error creating user:', error);
-        showAlert('Failed to create user. Please try again.', 'error');
-      }
-    }
-
-    async function handleWardSubmit(e) {
-      e.preventDefault();
-      const wardId = document.getElementById('wardId').value;
-      const wardName = document.getElementById('wardName').value;
-
-      try {
-        const response = await fetch('/api/wards', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: wardId,
-            name: wardName
-          })
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          document.getElementById('wardForm').reset();
-          loadWards();
-          loadUsers();
-          showAlert('Ward created successfully!', 'success');
-            } else {
-          showAlert(data.error || 'Failed to create ward', 'error');
-        }
-      } catch (error) {
-        showAlert('Failed to create ward. Please try again.', 'error');
-      }
     }
 
     function renderUsersList() {
@@ -1111,9 +966,6 @@
         `;
         return;
       }
-
-      // Force display the section
-      container.style.display = 'block';
 
       container.innerHTML = `
         <div class="room-grid">
@@ -1144,131 +996,7 @@
       `;
     }
 
-    async function deleteUser(userEmail) {
-      if (!confirm('Are you sure you want to delete this user?')) return;
-
-      try {
-        const response = await fetch(`/api/users/${userEmail}`, {
-          method: 'DELETE'
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          loadUsers();
-          showAlert('User deleted successfully!', 'success');
-        } else {
-          showAlert(data.error || 'Failed to delete user', 'error');
-        }
-      } catch (error) {
-        showAlert('Failed to delete user. Please try again.', 'error');
-      }
-    }
-
-    function showAlert(message, type) {
-      const alertDiv = document.createElement('div');
-      alertDiv.className = `alert alert-${type}`;
-      alertDiv.textContent = message;
-      
-      const content = document.querySelector('.content');
-      content.insertBefore(alertDiv, content.firstChild);
-      
-      setTimeout(() => {
-        alertDiv.remove();
-      }, 5000);
-    }
-
-    // Signup and Approval Functions
-    function showSignup() {
-      document.getElementById('loginSection').style.display = 'none';
-      document.getElementById('signupSection').style.display = 'block';
-      populateSignupWardSelect();
-    }
-
-    function showLogin() {
-      document.getElementById('signupSection').style.display = 'none';
-      document.getElementById('loginSection').style.display = 'block';
-      document.getElementById('signupError').style.display = 'none';
-      document.getElementById('signupSuccess').style.display = 'none';
-    }
-
-    function toggleSignupWard() {
-      const role = document.getElementById('signupRole').value;
-      const wardGroup = document.getElementById('signupWardGroup');
-      wardGroup.style.display = (role === 'nurse' || role === 'doctor') ? 'block' : 'none';
-    }
-
-    function populateSignupWardSelect() {
-      const select = document.getElementById('signupWard');
-      if (!select) return;
-      
-      select.innerHTML = '<option value="">Select ward...</option>';
-      wards.forEach(ward => {
-        const option = document.createElement('option');
-        option.value = ward.id;
-        option.textContent = ward.name;
-        select.appendChild(option);
-      });
-    }
-
-    async function handleSignup(e) {
-      e.preventDefault();
-      
-      const name = document.getElementById('signupName').value;
-      const email = document.getElementById('signupEmail').value;
-      const password = document.getElementById('signupPassword').value;
-      const role = document.getElementById('signupRole').value;
-      const ward = document.getElementById('signupWard').value;
-
-      try {
-        const response = await fetch('/api/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name,
-            email,
-            password,
-            role,
-            ward: ward || null
-          })
-        });
-
-        const data = await response.json();
-        
-        if (data.success) {
-          document.getElementById('signupForm').reset();
-          document.getElementById('signupWardGroup').style.display = 'none';
-          document.getElementById('signupError').style.display = 'none';
-          document.getElementById('signupSuccess').style.display = 'block';
-          document.getElementById('signupSuccess').textContent = data.message;
-          
-          // Auto-switch back to login after 3 seconds
-          setTimeout(() => {
-            showLogin();
-          }, 3000);
-        } else {
-          document.getElementById('signupError').style.display = 'block';
-          document.getElementById('signupError').textContent = data.error;
-        }
-      } catch (error) {
-        document.getElementById('signupError').style.display = 'block';
-        document.getElementById('signupError').textContent = 'Failed to sign up. Please try again.';
-      }
-    }
-
-    // Load pending users for admin
-    async function loadPendingUsers() {
-      if (currentUser.role !== 'admin') return;
-      
-      try {
-        const response = await fetch('/api/pending-users');
-        const pendingUsers = await response.json();
-        renderPendingUsers(pendingUsers);
-      } catch (error) {
-        console.error('Error loading pending users:', error);
-      }
-    }
-
-    function renderPendingUsers(pendingUsers) {
+    function renderPendingUsers() {
       const container = document.getElementById('pendingUsersList');
       const section = document.getElementById('pendingUsersSection');
       
@@ -1313,82 +1041,112 @@
       `;
     }
 
-    async function approveUser(userEmail) {
+    function acknowledgeEndorsement(endorsementId) {
+      const endorsement = endorsements.find(e => e.id === endorsementId);
+      if (!endorsement) return;
+
+      const userInitials = prompt('Enter your initials to acknowledge:');
+      if (userInitials && userInitials.trim()) {
+        if (!endorsement.acknowledgments.includes(userInitials.trim().toUpperCase())) {
+          endorsement.acknowledgments.push(userInitials.trim().toUpperCase());
+          saveDataToStorage();
+          renderEndorsements();
+          showAlert('Endorsement acknowledged!', 'success');
+        } else {
+          showAlert('You have already acknowledged this endorsement.', 'error');
+        }
+      }
+    }
+
+    function deleteRoom(roomId) {
+      if (!confirm('Are you sure you want to delete this room?')) return;
+      
+      patientRooms = patientRooms.filter(room => room.id !== roomId);
+      saveDataToStorage();
+      renderPatientRooms();
+      showAlert('Room deleted successfully!', 'success');
+    }
+
+    function deleteUser(userEmail) {
+      if (!confirm('Are you sure you want to delete this user?')) return;
+      
+      users = users.filter(user => user.email !== userEmail);
+      saveDataToStorage();
+      populateRecipientSelect();
+      renderUsersList();
+      showAlert('User deleted successfully!', 'success');
+    }
+
+    function approveUser(userEmail) {
       if (!confirm('Are you sure you want to approve this user?')) return;
 
-      try {
-        const response = await fetch('/api/approve-user', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: userEmail })
-        });
+      const pendingUserIndex = pendingUsers.findIndex(u => u.email === userEmail);
+      if (pendingUserIndex === -1) return;
 
-        const data = await response.json();
-        if (data.success) {
-          loadPendingUsers();
-          loadUsers();
-          showAlert('User approved successfully!', 'success');
-        } else {
-          showAlert(data.error || 'Failed to approve user', 'error');
-        }
-      } catch (error) {
-        showAlert('Failed to approve user. Please try again.', 'error');
-      }
+      const approvedUser = pendingUsers[pendingUserIndex];
+      approvedUser.status = 'approved';
+      users.push(approvedUser);
+      pendingUsers.splice(pendingUserIndex, 1);
+      saveDataToStorage();
+
+      populateRecipientSelect();
+      renderUsersList();
+      renderPendingUsers();
+      showAlert('User approved successfully!', 'success');
     }
 
-    async function rejectUser(userEmail) {
+    function rejectUser(userEmail) {
       if (!confirm('Are you sure you want to reject this user?')) return;
 
-      try {
-        const response = await fetch('/api/reject-user', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: userEmail })
-        });
-
-        const data = await response.json();
-        if (data.success) {
-          loadPendingUsers();
-          showAlert('User rejected successfully!', 'success');
-        } else {
-          showAlert(data.error || 'Failed to reject user', 'error');
-        }
-      } catch (error) {
-        showAlert('Failed to reject user. Please try again.', 'error');
-      }
+      pendingUsers = pendingUsers.filter(u => u.email !== userEmail);
+      saveDataToStorage();
+      renderPendingUsers();
+      showAlert('User rejected successfully!', 'success');
     }
 
-    // Update loadUsers to also load pending users for admin
-    async function loadUsers() {
-      try {
-        console.log('Loading users...');
-        const response = await fetch('/api/users');
-        console.log('Response status:', response.status);
-        users = await response.json();
-        console.log('Users loaded:', users);
-        console.log('Number of users:', users.length);
-        populateRecipientSelect();
-        renderUsersList();
-        
-        // Load pending users if admin
-        if (currentUser && currentUser.role === 'admin') {
-          loadPendingUsers();
-        }
-      } catch (error) {
-        console.error('Error loading users:', error);
-        // Show error in the UI
-        const container = document.getElementById('usersList');
-        if (container) {
-          container.innerHTML = `
-            <div class="alert alert-error">
-              <h3>Error Loading Users</h3>
-              <p>${error.message}</p>
-              <button onclick="loadUsers()" class="btn btn-primary">Retry</button>
-            </div>
-          `;
-        }
+    function showTab(tabName) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      
+      // Remove active class from all tabs
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Show selected tab content
+      document.getElementById(tabName + 'Tab').classList.add('active');
+      
+      // Add active class to selected tab
+      event.target.classList.add('active');
+    }
+
+    function logout() {
+      currentUser = null;
+      document.getElementById('mainApp').style.display = 'none';
+      document.getElementById('loginSection').style.display = 'block';
+      document.getElementById('loginForm').reset();
+      document.getElementById('userManagementTab').style.display = 'none';
+      showAlert('Logged out successfully!', 'success');
+    }
+
+    function showAlert(message, type) {
+      const alertDiv = document.createElement('div');
+      alertDiv.className = `alert alert-${type}`;
+      alertDiv.textContent = message;
+      
+      const content = document.querySelector('.content');
+      if (content) {
+        content.insertBefore(alertDiv, content.firstChild);
+      } else {
+        document.body.insertBefore(alertDiv, document.body.firstChild);
       }
+      
+      setTimeout(() => {
+        alertDiv.remove();
+      }, 5000);
     }
   </script>
 </body>
-</html>
+</html> 
