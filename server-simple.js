@@ -17,10 +17,34 @@ let pendingUsers = []; // New users waiting for approval
 let endorsements = [];
 let patientRooms = [];
 let wards = [
-  { id: 'ICU', name: 'Intensive Care Unit' },
-  { id: 'Emergency', name: 'Emergency Department' },
-  { id: 'Surgery', name: 'Surgery Ward' },
-  { id: 'Pediatrics', name: 'Pediatrics Ward' }
+  { id: 'A1', name: 'A1' },
+  { id: 'A1-NURSERY', name: 'A1-NURSERY' },
+  { id: 'A2', name: 'A2' },
+  { id: 'A3-1', name: 'A3-1' },
+  { id: 'A3-2', name: 'A3-2' },
+  { id: 'A4', name: 'A4' },
+  { id: 'B2', name: 'B2' },
+  { id: 'B3-1', name: 'B3-1' },
+  { id: 'B3-2', name: 'B3-2' },
+  { id: 'CCU/B4', name: 'CCU/B4' },
+  { id: 'C1', name: 'C1' },
+  { id: 'C2', name: 'C2' },
+  { id: 'C3', name: 'C3' },
+  { id: 'C4/CVT', name: 'C4/CVT' },
+  { id: 'D2', name: 'D2' },
+  { id: 'D3-1', name: 'D3-1' },
+  { id: 'D3-2', name: 'D3-2' },
+  { id: 'D4-1', name: 'D4-1' },
+  { id: 'D4-2', name: 'D4-2' },
+  { id: 'E1', name: 'E1' },
+  { id: 'E2', name: 'E2' },
+  { id: 'E3', name: 'E3' },
+  { id: 'F1', name: 'F1' },
+  { id: 'F2', name: 'F2' },
+  { id: 'F2-2', name: 'F2-2' },
+  { id: 'F3', name: 'F3' },
+  { id: 'CVSD', name: 'CVSD' },
+  { id: 'CSICU', name: 'CSICU' }
 ];
 
 // Helper functions
