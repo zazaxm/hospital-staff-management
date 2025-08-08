@@ -370,6 +370,52 @@
         color: #999;
         font-style: italic;
       }
+
+      .search-filters {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .search-filters .form-group {
+        margin-bottom: 0;
+      }
+
+      .btn-secondary {
+        background: #6c757d;
+        border-color: #6c757d;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background: #5a6268;
+        border-color: #545b62;
+      }
+
+      .room-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .room-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+
+      .room-header {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+
+      .room-info {
+        padding: 5px 0;
+        border-bottom: 1px solid #f8f9fa;
+      }
+
+      .room-info:last-child {
+        border-bottom: none;
+      }
     }
   </style>
 </head>
@@ -546,11 +592,39 @@
             </form>
           </div>
 
+          <!-- Enhanced Room Search & Filter (All Users) -->
+          <div class="card">
+            <h3><i class="fas fa-search"></i> Search & Filter Rooms</h3>
+            <div class="search-filters">
+              <div class="form-group">
+                <label for="roomSearchInput">Search by Patient Name or Room Number</label>
+                <input type="text" id="roomSearchInput" class="form-control" placeholder="Type to search..." onkeyup="searchRooms()">
+              </div>
+              <div class="form-group">
+                <label for="wardFilter">Filter by Ward</label>
+                <div class="ward-search-container">
+                  <input type="text" id="wardFilterSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('wardFilterSearch', 'wardFilter')">
+                </div>
+                <select id="wardFilter" class="form-control" onchange="filterRooms()">
+                  <option value="">All Wards</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-secondary" onclick="clearRoomFilters()">
+                  <i class="fas fa-times"></i> Clear Filters
+                </button>
+              </div>
+            </div>
+          </div>
+
           <!-- Ward Staff Directory (All Non-Admin Users) -->
           <div class="card">
             <h3><i class="fas fa-users"></i> Ward Staff Directory</h3>
             <div class="form-group">
               <label for="staffWardFilter">Filter by Ward</label>
+              <div class="ward-search-container">
+                <input type="text" id="staffWardFilterSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('staffWardFilterSearch', 'staffWardFilter')">
+              </div>
               <select id="staffWardFilter" class="form-control" onchange="filterStaff()">
                 <option value="">All Wards</option>
               </select>
@@ -558,17 +632,7 @@
             <div id="staffDirectory"></div>
           </div>
 
-          <!-- Room Filter (All Non-Admin Users) -->
-          <div class="card">
-            <h3><i class="fas fa-filter"></i> Filter Rooms</h3>
-            <div class="form-group">
-              <label for="wardFilter">Filter by Ward</label>
-              <select id="wardFilter" class="form-control" onchange="filterRooms()">
-                <option value="">All Wards</option>
-              </select>
-            </div>
-          </div>
-
+          <!-- Patient Rooms Display (All Users) -->
           <div class="card">
             <h3><i class="fas fa-bed"></i> Patient Rooms</h3>
             <div id="roomsList"></div>
@@ -1256,14 +1320,36 @@
 
     function filterRooms() {
       const selectedWard = document.getElementById('wardFilter').value;
+      const searchTerm = document.getElementById('roomSearchInput').value.toLowerCase();
       
-      if (!selectedWard) {
-        renderPatientRooms();
-        return;
+      let filteredRooms = patientRooms;
+      
+      // Filter by ward if selected
+      if (selectedWard) {
+        filteredRooms = filteredRooms.filter(room => room.ward === selectedWard);
       }
       
-      const filteredRooms = patientRooms.filter(room => room.ward === selectedWard);
+      // Filter by search term if entered
+      if (searchTerm) {
+        filteredRooms = filteredRooms.filter(room => 
+          room.patientName.toLowerCase().includes(searchTerm) ||
+          room.roomNumber.toLowerCase().includes(searchTerm) ||
+          room.ward.toLowerCase().includes(searchTerm)
+        );
+      }
+      
       renderPatientRooms(filteredRooms);
+    }
+
+    function searchRooms() {
+      filterRooms(); // This will handle both search and ward filter
+    }
+
+    function clearRoomFilters() {
+      document.getElementById('roomSearchInput').value = '';
+      document.getElementById('wardFilter').value = '';
+      document.getElementById('wardFilterSearch').value = '';
+      renderPatientRooms();
     }
 
     function renderUsersList() {
