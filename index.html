@@ -292,6 +292,84 @@
       .room-grid {
         grid-template-columns: 1fr;
       }
+
+      .ward-staff-section {
+        margin-bottom: 2rem;
+      }
+
+      .ward-staff-section h4 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #3498db;
+      }
+
+      .staff-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+
+      .staff-card {
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+      }
+
+      .staff-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      }
+
+      .staff-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .staff-role {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        text-transform: capitalize;
+      }
+
+      .staff-extension {
+        color: #27ae60;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .staff-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .ward-search-container {
+        margin-bottom: 10px;
+      }
+
+      .ward-search-container input {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
+      }
+
+      .ward-search-container input:focus {
+        border-color: #667eea;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+      }
+
+      .ward-search-container input::placeholder {
+        color: #999;
+        font-style: italic;
+      }
     }
   </style>
 </head>
@@ -352,12 +430,19 @@
               <option value="staff">Staff</option>
             </select>
           </div>
-          <div class="form-group" id="signupWardGroup" style="display: none;">
-            <label for="signupWard">Ward</label>
-            <select id="signupWard" class="form-control">
-              <option value="">Select ward...</option>
-            </select>
-          </div>
+                                  <div class="form-group" id="signupWardGroup" style="display: none;">
+                          <label for="signupWard">Ward</label>
+                          <div class="ward-search-container">
+                            <input type="text" id="signupWardSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('signupWardSearch', 'signupWard')">
+                          </div>
+                          <select id="signupWard" class="form-control" required>
+                            <option value="">Select ward...</option>
+                          </select>
+                        </div>
+                        <div class="form-group" id="signupExtensionGroup" style="display: none;">
+                          <label for="signupExtension">Extension</label>
+                          <input type="text" id="signupExtension" class="form-control" placeholder="e.g., 1234" required>
+                        </div>
           <button type="submit" class="btn btn-primary" style="width: 100%;">
             <i class="fas fa-user-plus"></i> Sign Up
           </button>
@@ -389,7 +474,7 @@
           <button class="tab active" onclick="showTab('endorsements')">
             <i class="fas fa-clipboard-list"></i> Endorsements
           </button>
-          <button class="tab" onclick="showTab('rooms')">
+          <button class="tab" id="roomsTab" onclick="showTab('rooms')" style="display: none;">
             <i class="fas fa-bed"></i> Patient Rooms
           </button>
           <button class="tab" id="userManagementTab" onclick="showTab('users')" style="display: none;">
@@ -434,7 +519,8 @@
 
         <!-- Patient Rooms Tab -->
         <div id="roomsTab" class="tab-content">
-          <div class="card">
+          <!-- Add Room Form (Nurses Only) -->
+          <div class="card" id="addRoomCard" style="display: none;">
             <h3><i class="fas fa-plus"></i> Add Patient Room</h3>
             <form id="roomForm">
               <div class="form-group">
@@ -446,8 +532,13 @@
                 <input type="text" id="patientName" class="form-control" placeholder="Enter patient name" required>
               </div>
               <div class="form-group">
-                <label for="nurseExtension">Nurse Extension</label>
-                <input type="text" id="nurseExtension" class="form-control" placeholder="e.g., 1234" required>
+                <label for="roomWard">Ward</label>
+                <div class="ward-search-container">
+                  <input type="text" id="roomWardSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('roomWardSearch', 'roomWard')">
+                </div>
+                <select id="roomWard" class="form-control" required>
+                  <option value="">Select ward...</option>
+                </select>
               </div>
               <button type="submit" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Add Room
@@ -455,8 +546,31 @@
             </form>
           </div>
 
+          <!-- Ward Staff Directory (All Non-Admin Users) -->
           <div class="card">
-            <h3><i class="fas fa-bed"></i> All Patient Rooms</h3>
+            <h3><i class="fas fa-users"></i> Ward Staff Directory</h3>
+            <div class="form-group">
+              <label for="staffWardFilter">Filter by Ward</label>
+              <select id="staffWardFilter" class="form-control" onchange="filterStaff()">
+                <option value="">All Wards</option>
+              </select>
+            </div>
+            <div id="staffDirectory"></div>
+          </div>
+
+          <!-- Room Filter (All Non-Admin Users) -->
+          <div class="card">
+            <h3><i class="fas fa-filter"></i> Filter Rooms</h3>
+            <div class="form-group">
+              <label for="wardFilter">Filter by Ward</label>
+              <select id="wardFilter" class="form-control" onchange="filterRooms()">
+                <option value="">All Wards</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3><i class="fas fa-bed"></i> Patient Rooms</h3>
             <div id="roomsList"></div>
           </div>
         </div>
@@ -488,12 +602,19 @@
                   <option value="staff">Staff</option>
                 </select>
               </div>
-              <div class="form-group" id="wardGroup" style="display: none;">
-                <label for="newUserWard">Ward</label>
-                <select id="newUserWard" class="form-control">
-                  <option value="">Select ward...</option>
-                </select>
-              </div>
+                                      <div class="form-group" id="wardGroup" style="display: none;">
+                          <label for="newUserWard">Ward</label>
+                          <div class="ward-search-container">
+                            <input type="text" id="newUserWardSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('newUserWardSearch', 'newUserWard')">
+                          </div>
+                          <select id="newUserWard" class="form-control" required>
+                            <option value="">Select ward...</option>
+                          </select>
+                        </div>
+                        <div class="form-group" id="extensionGroup" style="display: none;">
+                          <label for="newUserExtension">Extension</label>
+                          <input type="text" id="newUserExtension" class="form-control" placeholder="e.g., 1234" required>
+                        </div>
               <button type="submit" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Add User
               </button>
@@ -584,10 +705,34 @@
 
       if (wards.length === 0) {
         wards = [
-          { id: 'ICU', name: 'Intensive Care Unit' },
-          { id: 'Emergency', name: 'Emergency Department' },
-          { id: 'Cardiology', name: 'Cardiology Ward' },
-          { id: 'Oncology', name: 'Oncology Ward' }
+          { id: 'A1', name: 'A1' },
+          { id: 'A1-NURSERY', name: 'A1-NURSERY' },
+          { id: 'A2', name: 'A2' },
+          { id: 'A3-1', name: 'A3-1' },
+          { id: 'A3-2', name: 'A3-2' },
+          { id: 'A4', name: 'A4' },
+          { id: 'B2', name: 'B2' },
+          { id: 'B3-1', name: 'B3-1' },
+          { id: 'B3-2', name: 'B3-2' },
+          { id: 'CCU/B4', name: 'CCU/B4' },
+          { id: 'C1', name: 'C1' },
+          { id: 'C2', name: 'C2' },
+          { id: 'C3', name: 'C3' },
+          { id: 'C4/CVT', name: 'C4/CVT' },
+          { id: 'D2', name: 'D2' },
+          { id: 'D3-1', name: 'D3-1' },
+          { id: 'D3-2', name: 'D3-2' },
+          { id: 'D4-1', name: 'D4-1' },
+          { id: 'D4-2', name: 'D4-2' },
+          { id: 'E1', name: 'E1' },
+          { id: 'E2', name: 'E2' },
+          { id: 'E3', name: 'E3' },
+          { id: 'F1', name: 'F1' },
+          { id: 'F2', name: 'F2' },
+          { id: 'F2-2', name: 'F2-2' },
+          { id: 'F3', name: 'F3' },
+          { id: 'CVSD', name: 'CVSD' },
+          { id: 'CSICU', name: 'CSICU' }
         ];
         saveDataToStorage();
       }
@@ -628,6 +773,16 @@
           document.getElementById('userManagementTab').style.display = 'block';
         }
         
+        // Show rooms tab for nurses and other non-admin roles
+        if (user.role !== 'admin') {
+          document.getElementById('roomsTab').style.display = 'block';
+        }
+        
+        // Show add room form only for nurses
+        if (user.role === 'nurse') {
+          document.getElementById('addRoomCard').style.display = 'block';
+        }
+        
         loadData();
         showAlert('Login successful!', 'success');
       } else {
@@ -649,10 +804,23 @@
       const password = document.getElementById('signupPassword').value;
       const role = document.getElementById('signupRole').value;
       const ward = document.getElementById('signupWard').value;
+      const extension = document.getElementById('signupExtension').value;
 
       // Check if user already exists
       if (users.find(u => u.email === email) || pendingUsers.find(u => u.email === email)) {
         showAlert('User with this email already exists.', 'error');
+        return;
+      }
+
+      // Validate ward is selected for non-admin roles
+      if (role !== 'admin' && !ward) {
+        showAlert('Please select a ward for this role.', 'error');
+        return;
+      }
+
+      // Validate extension is provided for nurses
+      if (role === 'nurse' && !extension) {
+        showAlert('Please enter your extension number.', 'error');
         return;
       }
 
@@ -662,6 +830,7 @@
         name: name,
         role: role,
         ward: ward || null,
+        extension: extension || null,
         status: 'pending',
         createdAt: new Date().toISOString()
       };
@@ -693,7 +862,13 @@
     function toggleSignupWard() {
       const role = document.getElementById('signupRole').value;
       const wardGroup = document.getElementById('signupWardGroup');
-      wardGroup.style.display = (role === 'nurse' || role === 'doctor') ? 'block' : 'none';
+      const extensionGroup = document.getElementById('signupExtensionGroup');
+      
+      // Show ward selection for all roles except admin
+      wardGroup.style.display = (role !== 'admin' && role !== '') ? 'block' : 'none';
+      
+      // Show extension only for nurses
+      extensionGroup.style.display = (role === 'nurse') ? 'block' : 'none';
     }
 
     function populateSignupWardSelect() {
@@ -738,7 +913,13 @@
     function toggleWardSelect() {
       const role = document.getElementById('newUserRole').value;
       const wardGroup = document.getElementById('wardGroup');
-      wardGroup.style.display = (role === 'nurse' || role === 'doctor') ? 'block' : 'none';
+      const extensionGroup = document.getElementById('extensionGroup');
+      
+      // Show ward selection for all roles except admin
+      wardGroup.style.display = (role !== 'admin' && role !== '') ? 'block' : 'none';
+      
+      // Show extension only for nurses
+      extensionGroup.style.display = (role === 'nurse') ? 'block' : 'none';
     }
 
     function toggleRecipient() {
@@ -778,13 +959,17 @@
       
       const roomNumber = document.getElementById('roomNumber').value;
       const patientName = document.getElementById('patientName').value;
-      const nurseExtension = document.getElementById('nurseExtension').value;
+      const roomWard = document.getElementById('roomWard').value;
+      
+      // Get nurse extension from current user's profile
+      const nurseExtension = currentUser.extension || 'Not assigned';
       
       const room = {
         id: Date.now(),
         roomNumber: roomNumber,
         patientName: patientName,
         nurseExtension: nurseExtension,
+        ward: roomWard,
         createdBy: currentUser.email,
         createdAt: new Date().toISOString()
       };
@@ -805,10 +990,23 @@
       const password = document.getElementById('newUserPassword').value;
       const role = document.getElementById('newUserRole').value;
       const ward = document.getElementById('newUserWard').value;
+      const extension = document.getElementById('newUserExtension').value;
 
       // Check if user already exists
       if (users.find(u => u.email === email) || pendingUsers.find(u => u.email === email)) {
         showAlert('User with this email already exists.', 'error');
+        return;
+      }
+
+      // Validate ward is selected for non-admin roles
+      if (role !== 'admin' && !ward) {
+        showAlert('Please select a ward for this role.', 'error');
+        return;
+      }
+
+      // Validate extension is provided for nurses
+      if (role === 'nurse' && !extension) {
+        showAlert('Please enter extension number for nurses.', 'error');
         return;
       }
 
@@ -818,6 +1016,7 @@
         name: name,
         role: role,
         ward: ward || null,
+        extension: extension || null,
         status: 'approved'
       };
 
@@ -862,6 +1061,103 @@
       renderPatientRooms();
       renderUsersList();
       renderPendingUsers();
+      populateWardFilters();
+    }
+
+    function populateWardFilters() {
+      // Populate room ward select
+      const roomWardSelect = document.getElementById('roomWard');
+      if (roomWardSelect) {
+        roomWardSelect.innerHTML = '<option value="">Select ward...</option>';
+        wards.forEach(ward => {
+          const option = document.createElement('option');
+          option.value = ward.id;
+          option.textContent = ward.name;
+          roomWardSelect.appendChild(option);
+        });
+      }
+
+      // Populate ward filter
+      const wardFilter = document.getElementById('wardFilter');
+      if (wardFilter) {
+        wardFilter.innerHTML = '<option value="">All Wards</option>';
+        wards.forEach(ward => {
+          const option = document.createElement('option');
+          option.value = ward.id;
+          option.textContent = ward.name;
+          wardFilter.appendChild(option);
+        });
+      }
+
+      // Populate staff ward filter
+      const staffWardFilter = document.getElementById('staffWardFilter');
+      if (staffWardFilter) {
+        staffWardFilter.innerHTML = '<option value="">All Wards</option>';
+        wards.forEach(ward => {
+          const option = document.createElement('option');
+          option.value = ward.id;
+          option.textContent = ward.name;
+          staffWardFilter.appendChild(option);
+        });
+      }
+
+      // Render staff directory
+      renderStaffDirectory();
+    }
+
+    function renderStaffDirectory(filteredStaff = null) {
+      const container = document.getElementById('staffDirectory');
+      const staffToShow = filteredStaff || users.filter(user => user.role !== 'admin');
+      
+      if (!staffToShow || staffToShow.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-users"></i>
+            <h3>No Staff Found</h3>
+            <p>No staff members have been added yet.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Group staff by ward
+      const staffByWard = {};
+      staffToShow.forEach(staff => {
+        const wardName = staff.ward ? wards.find(w => w.id === staff.ward)?.name || 'Unknown Ward' : 'No Ward Assigned';
+        if (!staffByWard[wardName]) {
+          staffByWard[wardName] = [];
+        }
+        staffByWard[wardName].push(staff);
+      });
+
+      container.innerHTML = Object.keys(staffByWard).map(wardName => `
+        <div class="ward-staff-section">
+          <h4><i class="fas fa-hospital"></i> ${wardName}</h4>
+          <div class="staff-grid">
+            ${staffByWard[wardName].map(staff => `
+              <div class="staff-card">
+                <div class="staff-info">
+                  <strong>${staff.name}</strong>
+                  <span class="staff-role">${staff.role}</span>
+                  ${staff.extension ? `<span class="staff-extension">Ext: ${staff.extension}</span>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterStaff() {
+      const selectedWard = document.getElementById('staffWardFilter').value;
+      
+      if (!selectedWard) {
+        renderStaffDirectory();
+        return;
+      }
+      
+      const filteredStaff = users.filter(user => user.role !== 'admin' && user.ward === selectedWard);
+      renderStaffDirectory(filteredStaff);
     }
 
     function renderEndorsements() {
@@ -913,15 +1209,16 @@
       `;
     }
 
-    function renderPatientRooms() {
+    function renderPatientRooms(filteredRooms = null) {
       const container = document.getElementById('roomsList');
+      const roomsToShow = filteredRooms || patientRooms;
       
-      if (!patientRooms || patientRooms.length === 0) {
+      if (!roomsToShow || roomsToShow.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
             <i class="fas fa-bed"></i>
             <h3>No Patient Rooms</h3>
-            <p>No patient rooms have been added yet.</p>
+            <p>No patient rooms found.</p>
           </div>
         `;
         return;
@@ -929,13 +1226,15 @@
 
       container.innerHTML = `
         <div class="room-grid">
-          ${patientRooms.map(room => `
+          ${roomsToShow.map(room => `
             <div class="room-card">
               <div class="room-header">
                 <span class="room-number">Room ${room.roomNumber}</span>
-                <button class="btn btn-danger" onclick="deleteRoom(${room.id})">
-                  <i class="fas fa-trash"></i>
-                </button>
+                ${currentUser.role === 'nurse' ? `
+                  <button class="btn btn-danger" onclick="deleteRoom(${room.id})">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                ` : ''}
               </div>
               <div class="room-info">
                 <strong>Patient:</strong> ${room.patientName}
@@ -944,12 +1243,27 @@
                 <strong>Nurse Extension:</strong> ${room.nurseExtension}
               </div>
               <div class="room-info">
+                <strong>Ward:</strong> ${room.ward || 'Not assigned'}
+              </div>
+              <div class="room-info">
                 <strong>Added by:</strong> ${room.createdBy}
               </div>
             </div>
           `).join('')}
         </div>
       `;
+    }
+
+    function filterRooms() {
+      const selectedWard = document.getElementById('wardFilter').value;
+      
+      if (!selectedWard) {
+        renderPatientRooms();
+        return;
+      }
+      
+      const filteredRooms = patientRooms.filter(room => room.ward === selectedWard);
+      renderPatientRooms(filteredRooms);
     }
 
     function renderUsersList() {
@@ -1128,6 +1442,10 @@
       document.getElementById('loginSection').style.display = 'block';
       document.getElementById('loginForm').reset();
       document.getElementById('userManagementTab').style.display = 'none';
+      document.getElementById('roomsTab').style.display = 'none';
+      document.getElementById('addRoomCard').style.display = 'none';
+      document.getElementById('signupExtensionGroup').style.display = 'none';
+      document.getElementById('extensionGroup').style.display = 'none';
       showAlert('Logged out successfully!', 'success');
     }
 
@@ -1146,6 +1464,27 @@
       setTimeout(() => {
         alertDiv.remove();
       }, 5000);
+    }
+
+    function filterWardOptions(searchId, selectId) {
+      const searchInput = document.getElementById(searchId);
+      const selectElement = document.getElementById(selectId);
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      // Store original options if not already stored
+      if (!selectElement.originalOptions) {
+        selectElement.originalOptions = Array.from(selectElement.options);
+      }
+      
+      // Clear current options
+      selectElement.innerHTML = '<option value="">Select ward...</option>';
+      
+      // Filter and add matching options
+      selectElement.originalOptions.forEach(option => {
+        if (option.value && (option.textContent.toLowerCase().includes(searchTerm) || searchTerm === '')) {
+          selectElement.appendChild(option.cloneNode(true));
+        }
+      });
     }
   </script>
 </body>
