@@ -938,6 +938,9 @@
 
             <div class="card">
               <h3><i class="fas fa-list"></i> All Wards</h3>
+              <button class="btn btn-secondary" onclick="reloadWards()" style="margin-bottom: 15px;">
+                <i class="fas fa-sync"></i> Reload Wards
+              </button>
               <div id="wardsList"></div>
             </div>
           </div>
@@ -961,6 +964,15 @@
       loadDataFromStorage();
       setupEventListeners();
       initializeDefaultData();
+      
+      // Force reload wards if they're not showing
+      setTimeout(() => {
+        if (wards.length === 0) {
+          console.log('⚠️ Wards not loaded, forcing reload...');
+          initializeDefaultData();
+        }
+        console.log('🏥 Final ward count:', wards.length);
+      }, 1000);
     });
 
     function loadDataFromStorage() {
@@ -1034,7 +1046,16 @@
       populateWardSelect();
       populateSignupWardSelect();
       populateNurseWardSelect();
+      populateWardFilters();
       renderPthBookings();
+      
+      console.log('✅ All ward functions called. Total wards:', wards.length);
+    }
+
+    function reloadWards() {
+      console.log('🔄 Reloading wards...');
+      initializeDefaultData();
+      showAlert('Wards reloaded successfully!', 'success');
     }
 
     function setupEventListeners() {
