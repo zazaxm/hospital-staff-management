@@ -416,6 +416,150 @@
       .room-info:last-child {
         border-bottom: none;
       }
+
+      .profile-notice {
+        background: #e3f2fd;
+        border: 1px solid #2196f3;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        color: #1976d2;
+        font-style: italic;
+        text-align: center;
+      }
+
+      .nurse-profile-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .nurse-profile-section h3 {
+        color: white;
+        margin-bottom: 15px;
+      }
+
+      .nurse-profile-section .form-control {
+        border: 1px solid rgba(255,255,255,0.3);
+        background: rgba(255,255,255,0.1);
+        color: white;
+      }
+
+      .nurse-profile-section .form-control::placeholder {
+        color: rgba(255,255,255,0.7);
+      }
+
+      .nurse-profile-section .form-control:focus {
+        border-color: white;
+        background: rgba(255,255,255,0.2);
+      }
+    }
+
+    .form-text {
+      font-size: 12px;
+      color: #6c757d;
+      margin-top: 5px;
+    }
+
+    .form-text.text-muted {
+      color: #6c757d !important;
+    }
+
+    .ward-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .ward-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .ward-id {
+      font-size: 12px;
+      color: #6c757d;
+    }
+
+    .ward-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+
+    /* PTH Booking Styles */
+    .booking-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .booking-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .booking-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .booking-id {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .booking-status {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .booking-status.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .booking-status.completed {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .booking-info {
+      margin-bottom: 10px;
+    }
+
+    .info-row {
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .booking-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
     }
   </style>
 </head>
@@ -442,14 +586,14 @@
           <button type="submit" class="btn btn-primary" style="width: 100%;">
             <i class="fas fa-sign-in-alt"></i> Login
           </button>
-        </form>
+      </form>
         <div style="text-align: center; margin-top: 20px;">
           <button type="button" class="btn btn-secondary" onclick="showSignup()" style="width: 100%;">
             <i class="fas fa-user-plus"></i> New User? Sign Up
           </button>
         </div>
         <div id="loginError" class="alert alert-error" style="display: none; margin-top: 20px;"></div>
-      </div>
+    </div>
 
       <!-- Signup Form -->
       <div id="signupSection" style="display: none;">
@@ -474,7 +618,7 @@
               <option value="nurse">Nurse</option>
               <option value="doctor">Doctor</option>
               <option value="staff">Staff</option>
-            </select>
+        </select>
           </div>
                                   <div class="form-group" id="signupWardGroup" style="display: none;">
                           <label for="signupWard">Ward</label>
@@ -492,7 +636,7 @@
           <button type="submit" class="btn btn-primary" style="width: 100%;">
             <i class="fas fa-user-plus"></i> Sign Up
           </button>
-        </form>
+      </form>
         <div style="text-align: center; margin-top: 20px;">
           <button type="button" class="btn btn-secondary" onclick="showLogin()" style="width: 100%;">
             <i class="fas fa-sign-in-alt"></i> Already have account? Login
@@ -516,205 +660,287 @@
       </div>
 
       <div class="content">
-        <div class="tabs">
-          <button class="tab active" onclick="showTab('endorsements')">
-            <i class="fas fa-clipboard-list"></i> Endorsements
-          </button>
-          <button class="tab" id="roomsTab" onclick="showTab('rooms')" style="display: none;">
-            <i class="fas fa-bed"></i> Patient Rooms
-          </button>
-          <button class="tab" id="userManagementTab" onclick="showTab('users')" style="display: none;">
-            <i class="fas fa-users"></i> User Management
-          </button>
-        </div>
-
-        <!-- Endorsements Tab -->
-        <div id="endorsementsTab" class="tab-content active">
-          <div class="card">
-            <h3><i class="fas fa-plus"></i> Create New Endorsement</h3>
-            <form id="endorsementForm">
-              <div class="form-group">
-                <label for="endorsementType">Type</label>
-                <select id="endorsementType" class="form-control" onchange="toggleRecipient()" required>
-                  <option value="">Select type...</option>
-                  <option value="general">General (All Staff)</option>
-                  <option value="specific">Specific (Individual Staff)</option>
-                </select>
-              </div>
-              <div class="form-group" id="recipientGroup" style="display: none;">
-                <label for="recipientEmail">Recipient</label>
-                <select id="recipientEmail" class="form-control">
-                  <option value="">Select staff member...</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="endorsementMessage">Message</label>
-                <textarea id="endorsementMessage" class="form-control" rows="4" placeholder="Enter endorsement message..." required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-paper-plane"></i> Send Endorsement
-              </button>
-            </form>
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab active" onclick="showTab('endorsements')">
+              <i class="fas fa-clipboard-list"></i> Endorsements
+            </button>
+            <button class="tab" onclick="showTab('rooms')">
+              <i class="fas fa-bed"></i> Patient Rooms
+            </button>
+            <button class="tab" onclick="showTab('pthBooking')">
+              <i class="fas fa-flask"></i> PTH Test Booking
+            </button>
+            <button class="tab" onclick="showTab('staffDirectory')">
+              <i class="fas fa-users"></i> Staff Directory
+            </button>
+            <button class="tab" onclick="showTab('userManagement')" id="adminTab" style="display: none;">
+              <i class="fas fa-user-cog"></i> User Management
+            </button>
+            <button class="tab" onclick="showTab('wardManagement')" id="adminTab2" style="display: none;">
+              <i class="fas fa-hospital"></i> Ward Management
+            </button>
           </div>
 
-          <div class="card">
-            <h3><i class="fas fa-clipboard-list"></i> All Endorsements</h3>
-            <div id="endorsementsList"></div>
-          </div>
-        </div>
-
-        <!-- Patient Rooms Tab -->
-        <div id="roomsTab" class="tab-content">
-          <!-- Add Room Form (Nurses Only) -->
-          <div class="card" id="addRoomCard" style="display: none;">
-            <h3><i class="fas fa-plus"></i> Add Patient Room</h3>
-            <form id="roomForm">
-              <div class="form-group">
-                <label for="roomNumber">Room Number</label>
-                <input type="text" id="roomNumber" class="form-control" placeholder="e.g., 101, 202" required>
-              </div>
-              <div class="form-group">
-                <label for="patientName">Patient Name</label>
-                <input type="text" id="patientName" class="form-control" placeholder="Enter patient name" required>
-              </div>
-              <div class="form-group">
-                <label for="roomWard">Ward</label>
-                <div class="ward-search-container">
-                  <input type="text" id="roomWardSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('roomWardSearch', 'roomWard')">
+          <!-- Tab Contents -->
+          <div class="tab-content active" id="endorsementsTab">
+            <!-- Endorsements content remains the same -->
+            <div class="card">
+              <h3><i class="fas fa-clipboard-list"></i> Create Endorsement</h3>
+              <form id="endorsementForm">
+                <div class="form-group">
+                  <label for="endorsementType">Type</label>
+                  <select id="endorsementType" class="form-control" onchange="toggleRecipientField()" required>
+                    <option value="">Select type...</option>
+                    <option value="general">General (All Staff)</option>
+                    <option value="specific">Specific (Individual Staff)</option>
+                  </select>
                 </div>
-                <select id="roomWard" class="form-control" required>
-                  <option value="">Select ward...</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add Room
-              </button>
-            </form>
+                <div class="form-group" id="recipientGroup" style="display: none;">
+                  <label for="recipient">Recipient</label>
+                  <select id="recipient" class="form-control">
+                    <option value="">Select recipient...</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="endorsementMessage">Message</label>
+                  <textarea id="endorsementMessage" class="form-control" rows="4" placeholder="Enter endorsement message..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-paper-plane"></i> Submit Endorsement
+                </button>
+              </form>
+            </div>
+
+            <div class="card">
+              <h3><i class="fas fa-list"></i> Endorsements</h3>
+              <div id="endorsementsList"></div>
+            </div>
           </div>
 
-          <!-- Enhanced Room Search & Filter (All Users) -->
-          <div class="card">
-            <h3><i class="fas fa-search"></i> Search & Filter Rooms</h3>
-            <div class="search-filters">
-              <div class="form-group">
-                <label for="roomSearchInput">Search by Patient Name or Room Number</label>
-                <input type="text" id="roomSearchInput" class="form-control" placeholder="Type to search..." onkeyup="searchRooms()">
-              </div>
-              <div class="form-group">
-                <label for="wardFilter">Filter by Ward</label>
-                <div class="ward-search-container">
-                  <input type="text" id="wardFilterSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('wardFilterSearch', 'wardFilter')">
+          <!-- Updated Patient Rooms Tab -->
+          <div class="tab-content" id="roomsTab">
+            <!-- Add Room Form (Nurses and Admins only) -->
+            <div class="card" id="addRoomCard" style="display: none;">
+              <h3><i class="fas fa-plus"></i> Add Patient Room</h3>
+              <form id="roomForm">
+                <div class="form-group">
+                  <label for="roomWard">Ward</label>
+                  <div class="ward-search-container">
+                    <input type="text" id="roomWardSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('roomWardSearch', 'roomWard')">
+                  </div>
+                  <select id="roomWard" class="form-control" required>
+                    <option value="">Select ward...</option>
+                  </select>
+                  <small class="form-text text-muted">Your assigned ward: <strong id="nurseAssignedWard">Not set</strong></small>
                 </div>
-                <select id="wardFilter" class="form-control" onchange="filterRooms()">
-                  <option value="">All Wards</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <button type="button" class="btn btn-secondary" onclick="clearRoomFilters()">
+                <div class="form-group">
+                  <label for="roomNumber">Room Number</label>
+                  <input type="text" id="roomNumber" class="form-control" placeholder="e.g., 101, 202" required>
+                </div>
+                <div class="form-group">
+                  <label for="patientName">Patient Name</label>
+                  <input type="text" id="patientName" class="form-control" placeholder="Enter patient name" required>
+                </div>
+                <div class="form-group">
+                  <label for="nurseExtension">Nurse Extension</label>
+                  <input type="text" id="nurseExtension" class="form-control" placeholder="e.g., 1234" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save"></i> Add Room
+                </button>
+              </form>
+            </div>
+
+            <!-- Room Search and Filter -->
+            <div class="card">
+              <h3><i class="fas fa-search"></i> Search & Filter Rooms</h3>
+              <div class="search-filters">
+                <div class="form-group">
+                  <label for="roomSearch">Search</label>
+                  <input type="text" id="roomSearch" class="form-control" placeholder="Search by patient name, room number..." onkeyup="searchRooms()">
+                </div>
+                <div class="form-group">
+                  <label for="wardFilter">Filter by Ward</label>
+                  <select id="wardFilter" class="form-control" onchange="filterRooms()">
+                    <option value="">All Wards</option>
+                  </select>
+                </div>
+                <button class="btn btn-secondary" onclick="clearRoomFilters()">
                   <i class="fas fa-times"></i> Clear Filters
                 </button>
               </div>
             </div>
-          </div>
 
-          <!-- Ward Staff Directory (All Non-Admin Users) -->
-          <div class="card">
-            <h3><i class="fas fa-users"></i> Ward Staff Directory</h3>
-            <div class="form-group">
-              <label for="staffWardFilter">Filter by Ward</label>
-              <div class="ward-search-container">
-                <input type="text" id="staffWardFilterSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('staffWardFilterSearch', 'staffWardFilter')">
-              </div>
-              <select id="staffWardFilter" class="form-control" onchange="filterStaff()">
-                <option value="">All Wards</option>
-              </select>
+            <!-- Rooms by Ward Display -->
+            <div class="card">
+              <h3><i class="fas fa-bed"></i> Patient Rooms by Ward</h3>
+              <div id="roomsByWard"></div>
             </div>
-            <div id="staffDirectory"></div>
           </div>
 
-          <!-- Patient Rooms Display (All Users) -->
-          <div class="card">
-            <h3><i class="fas fa-bed"></i> Patient Rooms</h3>
-            <div id="roomsList"></div>
-          </div>
-        </div>
+          <!-- New PTH Test Booking Tab -->
+          <div class="tab-content" id="pthBookingTab">
+            <!-- Add PTH Booking Form (Doctors and Nurses only) -->
+            <div class="card" id="addPthBookingCard" style="display: none;">
+              <h3><i class="fas fa-plus"></i> Book PTH Test</h3>
+              <form id="pthBookingForm">
+                <div class="form-group">
+                  <label for="accessionNumber">Accession Number *</label>
+                  <input type="text" id="accessionNumber" class="form-control" placeholder="Enter accession number" required>
+                  <small class="form-text text-muted">Required: Unique identifier for the sample</small>
+                </div>
+                <div class="form-group">
+                  <label for="mrn">MRN (Medical Record Number) *</label>
+                  <input type="text" id="mrn" class="form-control" placeholder="Enter patient MRN" required>
+                  <small class="form-text text-muted">Required: Patient's medical record number</small>
+                </div>
+                <div class="form-group">
+                  <label for="extensionNumber">Extension Number *</label>
+                  <input type="text" id="extensionNumber" class="form-control" placeholder="Enter extension number" required>
+                  <small class="form-text text-muted">Required: Extension to call for results</small>
+                </div>
+                <div class="form-group">
+                  <label for="sendingTime">Time of Sending *</label>
+                  <input type="datetime-local" id="sendingTime" class="form-control" required>
+                  <small class="form-text text-muted">Required: When the sample was sent</small>
+                </div>
+                <div class="form-group">
+                  <label for="notes">Additional Notes</label>
+                  <textarea id="notes" class="form-control" rows="3" placeholder="Any additional information..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save"></i> Book PTH Test
+                </button>
+              </form>
+            </div>
 
-        <!-- User Management Tab -->
-        <div id="usersTab" class="tab-content">
-          <div class="card">
-            <h3><i class="fas fa-user-plus"></i> Add New Staff Member</h3>
-            <form id="userForm">
-              <div class="form-group">
-                <label for="newUserName">Full Name</label>
-                <input type="text" id="newUserName" class="form-control" placeholder="Enter full name" required>
+            <!-- PTH Bookings Search and Filter -->
+            <div class="card">
+              <h3><i class="fas fa-search"></i> Search & Filter PTH Bookings</h3>
+              <div class="search-filters">
+                <div class="form-group">
+                  <label for="pthSearch">Search</label>
+                  <input type="text" id="pthSearch" class="form-control" placeholder="Search by accession number, MRN..." onkeyup="searchPthBookings()">
+                </div>
+                <div class="form-group">
+                  <label for="pthDateFilter">Filter by Date</label>
+                  <input type="date" id="pthDateFilter" class="form-control" onchange="filterPthBookings()">
+                </div>
+                <button class="btn btn-secondary" onclick="clearPthFilters()">
+                  <i class="fas fa-times"></i> Clear Filters
+                </button>
               </div>
-              <div class="form-group">
-                <label for="newUserEmail">Email</label>
-                <input type="email" id="newUserEmail" class="form-control" placeholder="Enter email address" required>
-              </div>
-              <div class="form-group">
-                <label for="newUserPassword">Password</label>
-                <input type="password" id="newUserPassword" class="form-control" placeholder="Enter password" required>
-              </div>
-              <div class="form-group">
-                <label for="newUserRole">Role</label>
-                <select id="newUserRole" class="form-control" onchange="toggleWardSelect()" required>
-                  <option value="">Select role...</option>
-                  <option value="admin">Admin</option>
-                  <option value="nurse">Nurse</option>
-                  <option value="doctor">Doctor</option>
-                  <option value="staff">Staff</option>
-                </select>
-              </div>
-                                      <div class="form-group" id="wardGroup" style="display: none;">
-                          <label for="newUserWard">Ward</label>
-                          <div class="ward-search-container">
-                            <input type="text" id="newUserWardSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('newUserWardSearch', 'newUserWard')">
-                          </div>
-                          <select id="newUserWard" class="form-control" required>
-                            <option value="">Select ward...</option>
-                          </select>
-                        </div>
-                        <div class="form-group" id="extensionGroup" style="display: none;">
-                          <label for="newUserExtension">Extension</label>
-                          <input type="text" id="newUserExtension" class="form-control" placeholder="e.g., 1234" required>
-                        </div>
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add User
-              </button>
-            </form>
-          </div>
+            </div>
 
-          <div class="card">
-            <h3><i class="fas fa-plus"></i> Add New Ward</h3>
-            <form id="wardForm">
-              <div class="form-group">
-                <label for="wardId">Ward ID</label>
-                <input type="text" id="wardId" class="form-control" placeholder="e.g., Cardiology, Oncology" required>
-              </div>
-              <div class="form-group">
-                <label for="wardName">Ward Name</label>
-                <input type="text" id="wardName" class="form-control" placeholder="e.g., Cardiology Department" required>
-              </div>
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Add Ward
-              </button>
-            </form>
+            <!-- PTH Bookings List -->
+            <div class="card">
+              <h3><i class="fas fa-flask"></i> PTH Test Bookings</h3>
+              <div id="pthBookingsList"></div>
+            </div>
           </div>
 
-          <div class="card">
-            <h3><i class="fas fa-users"></i> All Staff Members</h3>
-            <div id="usersList"></div>
+          <!-- Staff Directory Tab -->
+          <div class="tab-content" id="staffDirectoryTab">
+            <div class="card">
+              <h3><i class="fas fa-search"></i> Filter Staff</h3>
+              <div class="search-filters">
+                <div class="form-group">
+                  <label for="staffWardFilter">Filter by Ward</label>
+                  <select id="staffWardFilter" class="form-control" onchange="filterStaff()">
+                    <option value="">All Wards</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3><i class="fas fa-users"></i> Staff Directory</h3>
+              <div id="staffDirectory"></div>
+            </div>
           </div>
-          
-          <!-- Pending Users Section (Admin Only) -->
-          <div id="pendingUsersSection" style="display: none;">
+
+          <!-- User Management Tab (Admin Only) -->
+          <div class="tab-content" id="userManagementTab">
+            <div class="card">
+              <h3><i class="fas fa-user-plus"></i> Create User</h3>
+              <form id="userForm">
+                <div class="form-group">
+                  <label for="userName">Full Name</label>
+                  <input type="text" id="userName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="userEmail">Email</label>
+                  <input type="email" id="userEmail" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="userPassword">Password</label>
+                  <input type="password" id="userPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="userRole">Role</label>
+                  <select id="userRole" class="form-control" onchange="toggleWardSelect()" required>
+                    <option value="">Select role...</option>
+                    <option value="admin">Admin</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="staff">Staff</option>
+                  </select>
+                </div>
+                <div class="form-group" id="wardGroup" style="display: none;">
+                  <label for="userWard">Ward</label>
+                  <div class="ward-search-container">
+                    <input type="text" id="userWardSearch" class="form-control" placeholder="Search wards..." onkeyup="filterWardOptions('userWardSearch', 'userWard')">
+                  </div>
+                  <select id="userWard" class="form-control">
+                    <option value="">Select ward...</option>
+                  </select>
+                </div>
+                <div class="form-group" id="extensionGroup" style="display: none;">
+                  <label for="userExtension">Extension</label>
+                  <input type="text" id="userExtension" class="form-control" placeholder="e.g., 1234">
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-user-plus"></i> Create User
+                </button>
+              </form>
+            </div>
+
+            <div class="card">
+              <h3><i class="fas fa-list"></i> All Users</h3>
+              <div id="usersList"></div>
+            </div>
+
             <div class="card">
               <h3><i class="fas fa-clock"></i> Pending Approvals</h3>
               <div id="pendingUsersList"></div>
             </div>
           </div>
-        </div>
+
+          <!-- Ward Management Tab (Admin Only) -->
+          <div class="tab-content" id="wardManagementTab">
+            <div class="card">
+              <h3><i class="fas fa-plus"></i> Add Ward</h3>
+              <form id="wardForm">
+                <div class="form-group">
+                  <label for="wardId">Ward ID</label>
+                  <input type="text" id="wardId" class="form-control" placeholder="e.g., A1, ICU" required>
+                </div>
+                <div class="form-group">
+                  <label for="wardName">Ward Name</label>
+                  <input type="text" id="wardName" class="form-control" placeholder="e.g., A1 Ward, Intensive Care Unit" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-plus"></i> Add Ward
+                </button>
+              </form>
+            </div>
+
+            <div class="card">
+              <h3><i class="fas fa-list"></i> All Wards</h3>
+              <div id="wardsList"></div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -725,6 +951,7 @@
     let users = [];
     let endorsements = [];
     let patientRooms = [];
+    let pthBookings = [];
     let wards = [];
     let pendingUsers = [];
 
@@ -741,10 +968,11 @@
       users = JSON.parse(localStorage.getItem('users')) || [];
       endorsements = JSON.parse(localStorage.getItem('endorsements')) || [];
       patientRooms = JSON.parse(localStorage.getItem('patientRooms')) || [];
+      pthBookings = JSON.parse(localStorage.getItem('pthBookings')) || [];
       wards = JSON.parse(localStorage.getItem('wards')) || [];
       pendingUsers = JSON.parse(localStorage.getItem('pendingUsers')) || [];
       
-      console.log('Data loaded from storage:', { users, endorsements, patientRooms, wards, pendingUsers });
+      console.log('Data loaded from storage:', { users, endorsements, patientRooms, pthBookings, wards, pendingUsers });
     }
 
     function saveDataToStorage() {
@@ -752,6 +980,7 @@
       localStorage.setItem('users', JSON.stringify(users));
       localStorage.setItem('endorsements', JSON.stringify(endorsements));
       localStorage.setItem('patientRooms', JSON.stringify(patientRooms));
+      localStorage.setItem('pthBookings', JSON.stringify(pthBookings));
       localStorage.setItem('wards', JSON.stringify(wards));
       localStorage.setItem('pendingUsers', JSON.stringify(pendingUsers));
     }
@@ -804,6 +1033,8 @@
       populateRecipientSelect();
       populateWardSelect();
       populateSignupWardSelect();
+      populateNurseWardSelect();
+      renderPthBookings();
     }
 
     function setupEventListeners() {
@@ -811,6 +1042,8 @@
       document.getElementById('signupForm').addEventListener('submit', handleSignup);
       document.getElementById('endorsementForm').addEventListener('submit', handleEndorsementSubmit);
       document.getElementById('roomForm').addEventListener('submit', handleRoomSubmit);
+      document.getElementById('pthBookingForm').addEventListener('submit', handlePthBookingSubmit);
+      document.getElementById('nurseProfileForm').addEventListener('submit', handleNurseProfileSubmit);
       document.getElementById('userForm').addEventListener('submit', handleUserSubmit);
       document.getElementById('wardForm').addEventListener('submit', handleWardSubmit);
     }
@@ -835,6 +1068,8 @@
         // Show admin features
         if (user.role === 'admin') {
           document.getElementById('userManagementTab').style.display = 'block';
+          document.getElementById('adminTab').style.display = 'block';
+          document.getElementById('adminTab2').style.display = 'block';
         }
         
         // Show rooms tab for nurses and other non-admin roles
@@ -842,10 +1077,19 @@
           document.getElementById('roomsTab').style.display = 'block';
         }
         
-        // Show add room form only for nurses
-        if (user.role === 'nurse') {
-          document.getElementById('addRoomCard').style.display = 'block';
-        }
+                  // Show add room form for nurses and admins
+          if (user.role === 'nurse' || user.role === 'admin') {
+            document.getElementById('addRoomCard').style.display = 'block';
+            if (user.role === 'nurse') {
+              // Update the assigned ward display
+              document.getElementById('nurseAssignedWard').textContent = user.ward || 'Not set';
+            }
+          }
+
+          // Show PTH booking form for doctors and nurses
+          if (user.role === 'doctor' || user.role === 'nurse') {
+            document.getElementById('addPthBookingCard').style.display = 'block';
+          }
         
         loadData();
         showAlert('Login successful!', 'success');
@@ -949,10 +1193,10 @@
     }
 
     function populateRecipientSelect() {
-      const select = document.getElementById('recipientEmail');
+      const select = document.getElementById('recipient');
       if (!select) return;
       
-      select.innerHTML = '<option value="">Select staff member...</option>';
+      select.innerHTML = '<option value="">Select recipient...</option>';
       users.forEach(user => {
         const option = document.createElement('option');
         option.value = user.email;
@@ -962,7 +1206,7 @@
     }
 
     function populateWardSelect() {
-      const select = document.getElementById('newUserWard');
+      const select = document.getElementById('userWard');
       if (!select) return;
       
       select.innerHTML = '<option value="">Select ward...</option>';
@@ -975,7 +1219,7 @@
     }
 
     function toggleWardSelect() {
-      const role = document.getElementById('newUserRole').value;
+      const role = document.getElementById('userRole').value;
       const wardGroup = document.getElementById('wardGroup');
       const extensionGroup = document.getElementById('extensionGroup');
       
@@ -986,7 +1230,7 @@
       extensionGroup.style.display = (role === 'nurse') ? 'block' : 'none';
     }
 
-    function toggleRecipient() {
+    function toggleRecipientField() {
       const type = document.getElementById('endorsementType').value;
       const recipientGroup = document.getElementById('recipientGroup');
       recipientGroup.style.display = type === 'specific' ? 'block' : 'none';
@@ -996,7 +1240,7 @@
       e.preventDefault();
       
       const type = document.getElementById('endorsementType').value;
-      const recipientEmail = document.getElementById('recipientEmail').value;
+      const recipientEmail = document.getElementById('recipient').value;
       const message = document.getElementById('endorsementMessage').value;
       
       const endorsement = {
@@ -1024,9 +1268,7 @@
       const roomNumber = document.getElementById('roomNumber').value;
       const patientName = document.getElementById('patientName').value;
       const roomWard = document.getElementById('roomWard').value;
-      
-      // Get nurse extension from current user's profile
-      const nurseExtension = currentUser.extension || 'Not assigned';
+      const nurseExtension = document.getElementById('nurseExtension').value;
       
       const room = {
         id: Date.now(),
@@ -1046,15 +1288,85 @@
       showAlert('Patient room added successfully!', 'success');
     }
 
+    function handlePthBookingSubmit(e) {
+      e.preventDefault();
+      
+      const accessionNumber = document.getElementById('accessionNumber').value;
+      const mrn = document.getElementById('mrn').value;
+      const extensionNumber = document.getElementById('extensionNumber').value;
+      const sendingTime = document.getElementById('sendingTime').value;
+      const notes = document.getElementById('notes').value;
+      
+      // Validation
+      if (!accessionNumber.trim() || !mrn.trim() || !extensionNumber.trim() || !sendingTime) {
+        showAlert('Please fill in all required fields.', 'error');
+        return;
+      }
+      
+      const booking = {
+        id: Date.now(),
+        accessionNumber: accessionNumber.trim(),
+        mrn: mrn.trim(),
+        extensionNumber: extensionNumber.trim(),
+        sendingTime: sendingTime,
+        notes: notes.trim(),
+        status: 'pending',
+        createdBy: currentUser.email,
+        createdByRole: currentUser.role,
+        createdAt: new Date().toISOString()
+      };
+
+      pthBookings.push(booking);
+      saveDataToStorage();
+      
+      document.getElementById('pthBookingForm').reset();
+      renderPthBookings();
+      showAlert('PTH test booking created successfully!', 'success');
+    }
+
+    function handleNurseProfileSubmit(e) {
+      e.preventDefault();
+      
+      const selectedWard = document.getElementById('nurseWardSelect').value;
+      const extension = document.getElementById('nurseExtension').value;
+      
+      if (!selectedWard || !extension) {
+        showAlert('Please select both ward and extension.', 'error');
+        return;
+      }
+      
+      // Update current user's profile
+      currentUser.ward = selectedWard;
+      currentUser.extension = extension;
+      
+      // Update user in users array
+      const userIndex = users.findIndex(u => u.email === currentUser.email);
+      if (userIndex !== -1) {
+        users[userIndex].ward = selectedWard;
+        users[userIndex].extension = extension;
+      }
+      
+      saveDataToStorage();
+      
+      // Hide profile setup, show add room form
+      document.getElementById('nurseProfileCard').style.display = 'none';
+      document.getElementById('addRoomCard').style.display = 'block';
+      
+      // Auto-fill room form with nurse's ward
+      document.getElementById('roomWard').value = selectedWard;
+      
+      showAlert('Profile updated successfully! You can now add patient rooms.', 'success');
+    }
+
     function handleUserSubmit(e) {
       e.preventDefault();
       
-      const name = document.getElementById('newUserName').value;
-      const email = document.getElementById('newUserEmail').value;
-      const password = document.getElementById('newUserPassword').value;
-      const role = document.getElementById('newUserRole').value;
-      const ward = document.getElementById('newUserWard').value;
-      const extension = document.getElementById('newUserExtension').value;
+      const name = document.getElementById('userName').value;
+      const email = document.getElementById('userEmail').value;
+      const password = document.getElementById('userPassword').value;
+      const role = document.getElementById('userRole').value;
+      const ward = document.getElementById('userWard').value;
+      const extension = document.getElementById('userExtension').value;
 
       // Check if user already exists
       if (users.find(u => u.email === email) || pendingUsers.find(u => u.email === email)) {
@@ -1117,18 +1429,49 @@
       document.getElementById('wardForm').reset();
       populateWardSelect();
       populateSignupWardSelect();
+      populateWardFilters();
+      populateNurseWardSelect();
       showAlert('Ward created successfully!', 'success');
+    }
+
+    function deleteWard(wardId) {
+      if (!confirm('Are you sure you want to delete this ward?')) return;
+      
+      // Check if any users are assigned to this ward
+      const usersInWard = users.filter(user => user.ward === wardId);
+      if (usersInWard.length > 0) {
+        showAlert('Cannot delete ward. Users are still assigned to it.', 'error');
+        return;
+      }
+      
+      // Check if any patient rooms are in this ward
+      const roomsInWard = patientRooms.filter(room => room.ward === wardId);
+      if (roomsInWard.length > 0) {
+        showAlert('Cannot delete ward. Patient rooms are still assigned to it.', 'error');
+        return;
+      }
+      
+      wards = wards.filter(ward => ward.id !== wardId);
+      saveDataToStorage();
+      
+      populateWardSelect();
+      populateSignupWardSelect();
+      populateWardFilters();
+      populateNurseWardSelect();
+      showAlert('Ward deleted successfully!', 'success');
     }
 
     function loadData() {
       renderEndorsements();
       renderPatientRooms();
+      renderPthBookings();
       renderUsersList();
       renderPendingUsers();
       populateWardFilters();
+      populateRecipientSelect();
     }
 
-    function populateWardFilters() {
+    function populateWardSelect() {
       // Populate room ward select
       const roomWardSelect = document.getElementById('roomWard');
       if (roomWardSelect) {
@@ -1140,6 +1483,23 @@
           roomWardSelect.appendChild(option);
         });
       }
+    }
+
+    function populateNurseWardSelect() {
+      // Populate nurse profile ward select
+      const nurseWardSelect = document.getElementById('nurseWardSelect');
+      if (nurseWardSelect) {
+        nurseWardSelect.innerHTML = '<option value="">Select your ward...</option>';
+        wards.forEach(ward => {
+          const option = document.createElement('option');
+          option.value = ward.id;
+          option.textContent = ward.name;
+          nurseWardSelect.appendChild(option);
+        });
+      }
+    }
+
+    function populateWardFilters() {
 
       // Populate ward filter
       const wardFilter = document.getElementById('wardFilter');
@@ -1167,6 +1527,37 @@
 
       // Render staff directory
       renderStaffDirectory();
+      renderWardsList();
+    }
+
+    function renderWardsList() {
+      const container = document.getElementById('wardsList');
+      if (!container) return;
+      
+      if (wards.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-hospital"></i>
+            <h3>No Wards Found</h3>
+            <p>No wards have been added yet.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = wards.map(ward => `
+        <div class="ward-item">
+          <div class="ward-info">
+            <strong>${ward.name}</strong>
+            <span class="ward-id">ID: ${ward.id}</span>
+          </div>
+          <div class="ward-actions">
+            <button class="btn btn-danger btn-sm" onclick="deleteWard('${ward.id}')">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+      `).join('');
     }
 
     function renderStaffDirectory(filteredStaff = null) {
@@ -1274,7 +1665,7 @@
     }
 
     function renderPatientRooms(filteredRooms = null) {
-      const container = document.getElementById('roomsList');
+      const container = document.getElementById('roomsByWard'); // Changed to roomsByWard
       const roomsToShow = filteredRooms || patientRooms;
       
       if (!roomsToShow || roomsToShow.length === 0) {
@@ -1288,39 +1679,42 @@
         return;
       }
 
-      container.innerHTML = `
-        <div class="room-grid">
-          ${roomsToShow.map(room => `
-            <div class="room-card">
-              <div class="room-header">
-                <span class="room-number">Room ${room.roomNumber}</span>
-                ${currentUser.role === 'nurse' ? `
-                  <button class="btn btn-danger" onclick="deleteRoom(${room.id})">
-                    <i class="fas fa-trash"></i>
+      // Group rooms by ward
+      const roomsByWard = {};
+      roomsToShow.forEach(room => {
+        const wardName = wards.find(w => w.id === room.ward)?.name || 'Unknown Ward';
+        if (!roomsByWard[wardName]) {
+          roomsByWard[wardName] = [];
+        }
+        roomsByWard[wardName].push(room);
+      });
+
+      container.innerHTML = Object.keys(roomsByWard).map(wardName => `
+        <div class="ward-staff-section">
+          <h4><i class="fas fa-hospital"></i> ${wardName}</h4>
+          <div class="staff-grid">
+            ${roomsByWard[wardName].map(room => `
+              <div class="staff-card">
+                <div class="staff-info">
+                  <strong>Room ${room.roomNumber}</strong>
+                  <span class="staff-role">Patient: ${room.patientName}</span>
+                  <span class="staff-extension">Nurse Ext: ${room.nurseExtension}</span>
+                </div>
+                ${currentUser.role === 'admin' || currentUser.role === 'nurse' ? `
+                  <button class="btn btn-danger btn-sm" onclick="deleteRoom(${room.id})">
+                    <i class="fas fa-trash"></i> Delete
                   </button>
                 ` : ''}
               </div>
-              <div class="room-info">
-                <strong>Patient:</strong> ${room.patientName}
-              </div>
-              <div class="room-info">
-                <strong>Nurse Extension:</strong> ${room.nurseExtension}
-              </div>
-              <div class="room-info">
-                <strong>Ward:</strong> ${room.ward || 'Not assigned'}
-              </div>
-              <div class="room-info">
-                <strong>Added by:</strong> ${room.createdBy}
-              </div>
-            </div>
-          `).join('')}
+            `).join('')}
+          </div>
         </div>
-      `;
+      `).join('');
     }
 
     function filterRooms() {
       const selectedWard = document.getElementById('wardFilter').value;
-      const searchTerm = document.getElementById('roomSearchInput').value.toLowerCase();
+      const searchTerm = document.getElementById('roomSearch').value.toLowerCase();
       
       let filteredRooms = patientRooms;
       
@@ -1346,9 +1740,9 @@
     }
 
     function clearRoomFilters() {
-      document.getElementById('roomSearchInput').value = '';
+      document.getElementById('roomSearch').value = '';
       document.getElementById('wardFilter').value = '';
-      document.getElementById('wardFilterSearch').value = '';
+      document.getElementById('roomWardSearch').value = '';
       renderPatientRooms();
     }
 
@@ -1445,17 +1839,28 @@
       const endorsement = endorsements.find(e => e.id === endorsementId);
       if (!endorsement) return;
 
-      const userInitials = prompt('Enter your initials to acknowledge:');
-      if (userInitials && userInitials.trim()) {
-        if (!endorsement.acknowledgments.includes(userInitials.trim().toUpperCase())) {
-          endorsement.acknowledgments.push(userInitials.trim().toUpperCase());
-          saveDataToStorage();
-          renderEndorsements();
-          showAlert('Endorsement acknowledged!', 'success');
-        } else {
-          showAlert('You have already acknowledged this endorsement.', 'error');
-        }
-      }
+      const userInitials = prompt('Enter your initials to acknowledge this endorsement:');
+      if (!userInitials) return;
+
+      endorsement.acknowledgedBy.push({
+        email: currentUser.email,
+        name: currentUser.name,
+        initials: userInitials,
+        timestamp: new Date().toISOString()
+      });
+
+      saveDataToStorage();
+      renderEndorsements();
+      showAlert('Endorsement acknowledged successfully!', 'success');
+    }
+
+    function deleteEndorsement(endorsementId) {
+      if (!confirm('Are you sure you want to delete this endorsement?')) return;
+      
+      endorsements = endorsements.filter(e => e.id !== endorsementId);
+      saveDataToStorage();
+      renderEndorsements();
+      showAlert('Endorsement deleted successfully!', 'success');
     }
 
     function deleteRoom(roomId) {
@@ -1571,6 +1976,108 @@
           selectElement.appendChild(option.cloneNode(true));
         }
       });
+    }
+
+    // PTH Booking Functions
+    function renderPthBookings(filteredBookings = null) {
+      const container = document.getElementById('pthBookingsList');
+      const bookingsToShow = filteredBookings || pthBookings;
+      
+      if (!bookingsToShow || bookingsToShow.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-flask"></i>
+            <h3>No PTH Bookings Found</h3>
+            <p>No PTH test bookings have been created yet.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="booking-grid">
+          ${bookingsToShow.map(booking => `
+            <div class="booking-card">
+              <div class="booking-header">
+                <span class="booking-id">#${booking.accessionNumber}</span>
+                <span class="booking-status ${booking.status}">${booking.status}</span>
+              </div>
+              <div class="booking-info">
+                <div class="info-row">
+                  <strong>MRN:</strong> ${booking.mrn}
+                </div>
+                <div class="info-row">
+                  <strong>Extension:</strong> ${booking.extensionNumber}
+                </div>
+                <div class="info-row">
+                  <strong>Sent:</strong> ${new Date(booking.sendingTime).toLocaleString()}
+                </div>
+                <div class="info-row">
+                  <strong>Booked by:</strong> ${booking.createdBy} (${booking.createdByRole})
+                </div>
+                ${booking.notes ? `
+                  <div class="info-row">
+                    <strong>Notes:</strong> ${booking.notes}
+                  </div>
+                ` : ''}
+              </div>
+              ${currentUser.role === 'admin' ? `
+                <div class="booking-actions">
+                  <button class="btn btn-danger btn-sm" onclick="deletePthBooking(${booking.id})">
+                    <i class="fas fa-trash"></i> Delete
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function searchPthBookings() {
+      const searchTerm = document.getElementById('pthSearch').value.toLowerCase();
+      const dateFilter = document.getElementById('pthDateFilter').value;
+      
+      let filteredBookings = pthBookings;
+      
+      // Filter by search term
+      if (searchTerm) {
+        filteredBookings = filteredBookings.filter(booking => 
+          booking.accessionNumber.toLowerCase().includes(searchTerm) ||
+          booking.mrn.toLowerCase().includes(searchTerm) ||
+          booking.extensionNumber.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      // Filter by date
+      if (dateFilter) {
+        const filterDate = new Date(dateFilter);
+        filteredBookings = filteredBookings.filter(booking => {
+          const bookingDate = new Date(booking.sendingTime);
+          return bookingDate.toDateString() === filterDate.toDateString();
+        });
+      }
+      
+      renderPthBookings(filteredBookings);
+    }
+
+    function filterPthBookings() {
+      searchPthBookings();
+    }
+
+    function clearPthFilters() {
+      document.getElementById('pthSearch').value = '';
+      document.getElementById('pthDateFilter').value = '';
+      renderPthBookings();
+    }
+
+    function deletePthBooking(bookingId) {
+      if (!confirm('Are you sure you want to delete this PTH booking?')) return;
+      
+      pthBookings = pthBookings.filter(booking => booking.id !== bookingId);
+      saveDataToStorage();
+      renderPthBookings();
+      showAlert('PTH booking deleted successfully!', 'success');
     }
   </script>
 </body>
