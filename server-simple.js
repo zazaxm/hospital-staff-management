@@ -16,6 +16,7 @@ let users = [
 let pendingUsers = []; // New users waiting for approval
 let endorsements = [];
 let patientRooms = [];
+let pthBookings = [];
 let wards = [
   { id: 'A1', name: 'A1' },
   { id: 'A1-NURSERY', name: 'A1-NURSERY' },
@@ -389,7 +390,7 @@ async function handleAPI(req, res) {
     return;
   }
 
-  if (pathname.includes('/api/patient-rooms/') && method === 'DELETE') {
+    if (pathname.includes('/api/patient-rooms/') && method === 'DELETE') {
     const parts = pathname.split('/');
     const wardId = parts[3];
     const roomNumber = parts[4];
@@ -397,7 +398,52 @@ async function handleAPI(req, res) {
     patientRooms = patientRooms.filter(room => 
       !(room.wardId === wardId && room.roomNumber === roomNumber)
     );
+    
+    sendResponse(res, 200, { success: true });
+    return;
+  }
 
+  // PTH Bookings endpoints
+  if (pathname === '/api/pth-bookings' && method === 'GET') {
+    sendResponse(res, 200, pthBookings);
+    return;
+  }
+  
+  if (pathname === '/api/pth-bookings' && method === 'POST') {
+    const body = await readRequestBody(req);
+    const data = parseJSON(body);
+    
+    if (!data || !data.accessionNumber || !data.mrn || !data.extensionNumber || !data.sendingTime) {
+      return sendResponse(res, 400, { error: 'Missing required fields' });
+    }
+    
+    const newBooking = {
+      id: Date.now(),
+      accessionNumber: data.accessionNumber,
+      mrn: data.mrn,
+      extensionNumber: data.extensionNumber,
+      sendingTime: data.sendingTime,
+      notes: data.notes || '',
+      status: 'pending',
+      createdBy: data.createdBy || 'unknown',
+      createdByRole: data.createdByRole || 'unknown',
+      createdAt: new Date().toISOString()
+    };
+    
+    pthBookings.push(newBooking);
+    sendResponse(res, 200, { success: true, booking: newBooking });
+    return;
+  }
+
+  if (pathname.startsWith('/api/pth-bookings/') && method === 'DELETE') {
+    const bookingId = parseInt(pathname.split('/')[3]);
+    
+    const bookingIndex = pthBookings.findIndex(b => b.id === bookingId);
+    if (bookingIndex === -1) {
+      return sendResponse(res, 404, { error: 'PTH booking not found' });
+    }
+    
+    pthBookings.splice(bookingIndex, 1);
     sendResponse(res, 200, { success: true });
     return;
   }
