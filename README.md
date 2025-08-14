@@ -197,4 +197,26 @@ For issues or questions, check the console logs for error messages and ensure al
 
 ---
 
+## **📅 Recent Updates (December 2024)**
+
+### **Version 2.2.0 - Excel Export & Enhanced Wards**
+- ✅ **Monthly Excel Export** - Export endorsements and PTH bookings to Excel
+- ✅ **Enhanced ward list** - Now includes all 30 wards
+- ✅ **Improved nurse registration** - Complete ward selection available
+- ✅ **Excel report generation** - Automatic monthly reports with proper formatting
+
+### **Version 2.1.0 - Ward Loading Fix**
+- ✅ **Fixed ward loading issue** - All 30 wards now appear properly
+- ✅ **Added automatic ward reload** - System handles loading automatically
+- ✅ **Enhanced debug logging** - Better error tracking
+- ✅ **Added manual reload button** - Admin can force reload if needed
+
+### **Version 2.0.0 - Complete Feature Set**
+- ✅ **Enhanced room management** with role-based access control
+- ✅ **PTH test booking system** for doctors and nurses
+- ✅ **Ward-based organization** throughout the system
+- ✅ **Complete user management** with admin approval
+
+---
+
 **Note**: This is a presentation/demonstration system. For production use, implement proper security measures, database storage, and user management. 
