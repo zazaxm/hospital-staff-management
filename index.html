@@ -5,6 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
       <title>Hospital Staff Management System</title>
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
       <style>
         * {
           margin: 0;
@@ -687,7 +688,12 @@
               <div class="tab-content active" id="endorsementsTab">
                 <!-- Endorsements content remains the same -->
                 <div class="card">
-                  <h3><i class="fas fa-clipboard-list"></i> Create Endorsement</h3>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3><i class="fas fa-clipboard-list"></i> Create Endorsement</h3>
+                    <button class="btn btn-success" onclick="exportEndorsementsToExcel()">
+                      <i class="fas fa-file-excel"></i> Export Monthly Report
+                    </button>
+                  </div>
                   <form id="endorsementForm">
                     <div class="form-group">
                       <label for="endorsementType">Type</label>
@@ -836,7 +842,12 @@
 
                 <!-- PTH Bookings List -->
                 <div class="card">
-                  <h3><i class="fas fa-flask"></i> PTH Test Bookings</h3>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3><i class="fas fa-flask"></i> PTH Test Bookings</h3>
+                    <button class="btn btn-success" onclick="exportPthBookingsToExcel()">
+                      <i class="fas fa-file-excel"></i> Export Monthly Report
+                    </button>
+                  </div>
                   <div id="pthBookingsList"></div>
                 </div>
               </div>
@@ -1009,7 +1020,7 @@
             saveDataToStorage();
           }
 
-          // Always initialize with full ward list (28 wards)
+          // Always initialize with full ward list (30 wards)
           wards = [
             { id: 'A1', name: 'A1' },
             { id: 'A1-NURSERY', name: 'A1-NURSERY' },
@@ -1017,14 +1028,17 @@
             { id: 'A3-1', name: 'A3-1' },
             { id: 'A3-2', name: 'A3-2' },
             { id: 'A4', name: 'A4' },
+            { id: 'B1', name: 'B1' },
             { id: 'B2', name: 'B2' },
             { id: 'B3-1', name: 'B3-1' },
             { id: 'B3-2', name: 'B3-2' },
+            { id: 'B4', name: 'B4' },
             { id: 'CCU/B4', name: 'CCU/B4' },
             { id: 'C1', name: 'C1' },
             { id: 'C2', name: 'C2' },
             { id: 'C3', name: 'C3' },
             { id: 'C4/CVT', name: 'C4/CVT' },
+            { id: 'D1', name: 'D1' },
             { id: 'D2', name: 'D2' },
             { id: 'D3-1', name: 'D3-1' },
             { id: 'D3-2', name: 'D3-2' },
@@ -1037,11 +1051,13 @@
             { id: 'F2', name: 'F2' },
             { id: 'F2-2', name: 'F2-2' },
             { id: 'F3', name: 'F3' },
+            { id: 'ICU', name: 'ICU' },
+            { id: 'Emergency', name: 'Emergency' },
             { id: 'CVSD', name: 'CVSD' },
             { id: 'CSICU', name: 'CSICU' }
           ];
           saveDataToStorage();
-          console.log('✅ 28 wards initialized:', wards.length, 'wards');
+          console.log('✅ 30 wards initialized:', wards.length, 'wards');
 
           populateRecipientSelect();
           populateWardSelect();
@@ -1059,7 +1075,7 @@
           localStorage.removeItem('wards');
           // Reinitialize with fresh ward data
           initializeDefaultData();
-          showAlert('28 wards reloaded successfully!', 'success');
+          showAlert('30 wards reloaded successfully!', 'success');
         }
 
         function setupEventListeners() {
@@ -2103,6 +2119,123 @@
           saveDataToStorage();
           renderPthBookings();
           showAlert('PTH booking deleted successfully!', 'success');
+        }
+
+        // Excel Export Functions
+        function exportEndorsementsToExcel() {
+          const currentDate = new Date();
+          const currentMonth = currentDate.getMonth();
+          const currentYear = currentDate.getFullYear();
+          
+          // Filter endorsements for current month
+          const monthlyEndorsements = endorsements.filter(endorsement => {
+            const endorsementDate = new Date(endorsement.createdAt);
+            return endorsementDate.getMonth() === currentMonth && 
+                   endorsementDate.getFullYear() === currentYear;
+          });
+          
+          if (monthlyEndorsements.length === 0) {
+            showAlert('No endorsements found for the current month.', 'warning');
+            return;
+          }
+          
+          // Prepare data for Excel
+          const excelData = monthlyEndorsements.map(endorsement => ({
+            'ID': endorsement.id,
+            'Type': endorsement.type,
+            'Recipient': endorsement.recipientEmail || 'All Staff',
+            'Message': endorsement.message,
+            'Created By': endorsement.createdBy,
+            'Created At': new Date(endorsement.createdAt).toLocaleString(),
+            'Acknowledgments': endorsement.acknowledgments.length
+          }));
+          
+          // Create workbook and worksheet
+          const wb = XLSX.utils.book_new();
+          const ws = XLSX.utils.json_to_sheet(excelData);
+          
+          // Set column widths
+          const colWidths = [
+            { wch: 10 }, // ID
+            { wch: 12 }, // Type
+            { wch: 25 }, // Recipient
+            { wch: 40 }, // Message
+            { wch: 20 }, // Created By
+            { wch: 20 }, // Created At
+            { wch: 15 }  // Acknowledgments
+          ];
+          ws['!cols'] = colWidths;
+          
+          // Add worksheet to workbook
+          XLSX.utils.book_append_sheet(wb, ws, 'Endorsements');
+          
+          // Generate filename
+          const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                             'July', 'August', 'September', 'October', 'November', 'December'];
+          const fileName = `Endorsements_${monthNames[currentMonth]}_${currentYear}.xlsx`;
+          
+          // Download file
+          XLSX.writeFile(wb, fileName);
+          showAlert(`Monthly endorsements report exported successfully! (${monthlyEndorsements.length} records)`, 'success');
+        }
+
+        function exportPthBookingsToExcel() {
+          const currentDate = new Date();
+          const currentMonth = currentDate.getMonth();
+          const currentYear = currentDate.getFullYear();
+          
+          // Filter PTH bookings for current month
+          const monthlyPthBookings = pthBookings.filter(booking => {
+            const bookingDate = new Date(booking.sendingTime);
+            return bookingDate.getMonth() === currentMonth && 
+                   bookingDate.getFullYear() === currentYear;
+          });
+          
+          if (monthlyPthBookings.length === 0) {
+            showAlert('No PTH bookings found for the current month.', 'warning');
+            return;
+          }
+          
+          // Prepare data for Excel
+          const excelData = monthlyPthBookings.map(booking => ({
+            'Accession Number': booking.accessionNumber,
+            'MRN': booking.mrn,
+            'Extension Number': booking.extensionNumber,
+            'Sending Time': new Date(booking.sendingTime).toLocaleString(),
+            'Notes': booking.notes || '',
+            'Booked By': booking.createdBy,
+            'Booked By Role': booking.createdByRole,
+            'Created At': new Date(booking.createdAt).toLocaleString()
+          }));
+          
+          // Create workbook and worksheet
+          const wb = XLSX.utils.book_new();
+          const ws = XLSX.utils.json_to_sheet(excelData);
+          
+          // Set column widths
+          const colWidths = [
+            { wch: 18 }, // Accession Number
+            { wch: 15 }, // MRN
+            { wch: 18 }, // Extension Number
+            { wch: 20 }, // Sending Time
+            { wch: 30 }, // Notes
+            { wch: 20 }, // Booked By
+            { wch: 15 }, // Booked By Role
+            { wch: 20 }  // Created At
+          ];
+          ws['!cols'] = colWidths;
+          
+          // Add worksheet to workbook
+          XLSX.utils.book_append_sheet(wb, ws, 'PTH Bookings');
+          
+          // Generate filename
+          const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                             'July', 'August', 'September', 'October', 'November', 'December'];
+          const fileName = `PTH_Bookings_${monthNames[currentMonth]}_${currentYear}.xlsx`;
+          
+          // Download file
+          XLSX.writeFile(wb, fileName);
+          showAlert(`Monthly PTH bookings report exported successfully! (${monthlyPthBookings.length} records)`, 'success');
         }
       </script>
     </body>
